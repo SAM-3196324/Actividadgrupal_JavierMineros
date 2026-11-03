@@ -17,9 +17,9 @@
   const tiltBound = new WeakSet();
 
   if (!modules.length) {
-    console.error("No se cargaron módulos desde data/modulos.js.");
+    console.error("No se cargaron módulos desde js/modulos.js.");
     emptyState.hidden = false;
-    emptyState.textContent = "No se pudieron cargar los módulos. Revisa que data/modulos.js esté disponible.";
+    emptyState.textContent = "No se pudieron cargar los módulos. Revisa que js/modulos.js esté disponible.";
     liveRegion.textContent = "Error al cargar los módulos";
     return;
   }
@@ -92,7 +92,7 @@
 
     if (!technologyList.length) {
       status.textContent = "No se pudieron cargar las tecnologías.";
-      console.error("No se cargaron tecnologías desde data/tecnologias.js.");
+      console.error("No se cargaron tecnologías desde js/tecnologias.js.");
       return;
     }
 
