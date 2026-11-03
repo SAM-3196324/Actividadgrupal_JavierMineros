@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portal educativo HUB 3DS·A: repasa los módulos técnicos del año, sus herramientas, evidencias y recursos.">
+  <meta name="theme-color" content="#F7F3EE">
+  <title>HUB 3DS·A — Un año de ideas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/tecnologias.js" defer></script>
+  <script src="data/modulos.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="HUB 3DS·A, inicio"><span class="brand-mark">H</span><span>HUB <b>3DS·A</b></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir navegación"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="#tecnologias">Tecnologías</a>
+        <a href="#modulos">Módulos</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#ruta">Ruta</a>
+        <a href="#rubrica">Rúbrica</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo claro" title="Cambiar tema"><span aria-hidden="true">☼</span><span class="theme-label">Modo claro</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="wrap hero-inner">
+        <p class="eyebrow">INDEL <span class="eyebrow-divider">/</span> 3.º DESARROLLO DE SOFTWARE «A»</p>
+        <div class="hero-copy-layout">
+          <div class="hero-title-wrap">
+            <h1><span class="title-line">Un año de ideas.</span><span class="title-line title-emphasis">Un HUB para compartirlas.</span></h1>
+            <p class="hero-copy">El mapa interactivo de nuestro recorrido técnico: proyectos, herramientas y aprendizajes construidos en equipo.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#modulos">Explorar módulos <span aria-hidden="true">↘</span></a>
+              <button class="button button-secondary" id="print-page" type="button"><span aria-hidden="true">⇩</span> Guardar como PDF</button>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="hero-art-caption">ARCHIVO<br>DE UN AÑO</span>
+            <span class="hero-art-mark">3A</span>
+            <span class="hero-art-line"></span>
+            <span class="hero-art-note">INDEL · 2026</span>
+          </div>
+        </div>
+        <div class="hero-stats" aria-label="Resumen del portal">
+          <div><strong id="module-count">—</strong><span>módulos</span></div>
+          <div><strong>4</strong><span>integrantes</span></div>
+          <div><strong>∞</strong><span>ideas por descubrir</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tech-section" id="tecnologias" aria-labelledby="tech-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / STACK TECNOLÓGICO</p>
+            <h2 id="tech-title">Tecnologías que dieron forma a <span class="accent">nuestro aprendizaje.</span></h2>
+            <p class="section-intro">Un recorrido por las herramientas, lenguajes y entornos que formaron parte de nuestra evolución como desarrolladores.</p>
+          </div>
+          <p class="module-count" id="technology-count" aria-live="polite"></p>
+        </div>
+        <div class="technology-filters" id="technology-filters" aria-label="Filtrar tecnologías"></div>
+        <div class="carousel-toolbar">
+          <p class="carousel-status" id="carousel-status" aria-live="polite">Explora el recorrido tecnológico</p>
+          <div class="carousel-controls">
+            <button class="carousel-arrow" id="technology-previous" type="button" aria-label="Ver tecnologías anteriores"><span aria-hidden="true">←</span></button>
+            <div class="carousel-dots" id="carousel-dots" aria-label="Posición del carrusel"></div>
+            <button class="carousel-arrow" id="technology-next" type="button" aria-label="Ver tecnologías siguientes"><span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+        <div class="technology-viewport" id="technology-viewport" tabindex="0" aria-label="Carrusel de tecnologías">
+          <div class="technology-track" id="technology-track"></div>
+        </div>
+        <p class="carousel-hint">Desliza, arrastra o usa las flechas para explorar <span aria-hidden="true">↔</span></p>
+      </div>
+    </section>
+
+    <section class="section modules-section" id="modulos">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 / ARCHIVO DE APRENDIZAJE</p>
+            <h2>Explora los módulos<span class="accent">.</span></h2>
+            <p class="section-intro">Busca por tecnología, tema o integrante. Abre una ficha para consultar herramientas, evidencias y comprobar lo aprendido.</p>
+          </div>
+          <p class="module-count" id="results-count" aria-live="polite"></p>
+        </div>
+        <div class="filters" role="search" aria-label="Buscar y filtrar módulos">
+          <label class="search-box">
+            <span class="sr-only">Buscar módulos</span>
+            <span aria-hidden="true">⌕</span>
+            <input id="module-search" type="search" placeholder="Buscar módulo, tecnología o concepto…" autocomplete="off">
+            <kbd>/</kbd>
+          </label>
+          <label class="filter-label">Filtrar por área
+            <select id="category-filter">
+              <option value="all">Todas las áreas</option>
+            </select>
+          </label>
+          <label class="filter-label">Filtrar por integrante
+            <select id="owner-filter">
+              <option value="all">Todo el equipo</option>
+            </select>
+          </label>
+          <button class="text-button" id="clear-filters" type="button">Limpiar filtros</button>
+        </div>
+        <div class="module-grid" id="module-grid" aria-live="polite"></div>
+        <p class="empty-state" id="empty-state" hidden>No encontramos módulos con esos filtros. Prueba con otra búsqueda.</p>
+      </div>
+    </section>
+
+    <section class="section progress-section" id="ruta">
+      <div class="wrap progress-layout">
+        <div>
+          <p class="eyebrow">03 / TU RECORRIDO</p>
+          <h2>Aprender también es <span class="accent">avanzar.</span></h2>
+          <p class="section-intro">Marca las fichas que ya revisaste. Tu progreso se guarda en este navegador.</p>
+          <div class="progress-readout"><strong id="progress-value">0%</strong><span id="progress-caption">0 de 0 módulos revisados</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Progreso de módulos revisados" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar"><span id="progress-fill"></span></div>
+          <button class="text-button reset-progress" id="reset-progress" type="button">Reiniciar mi progreso</button>
+        </div>
+        <ol class="timeline">
+          <li><span class="timeline-index">01</span><div><h3>Recordar</h3><p>Recuperamos lo aprendido durante el año.</p></div></li>
+          <li><span class="timeline-index">02</span><div><h3>Construir</h3><p>Organizamos módulos, herramientas y evidencias.</p></div></li>
+          <li><span class="timeline-index">03</span><div><h3>Compartir</h3><p>Publicamos, explicamos y aprendemos en equipo.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section team-section" id="equipo">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">04 / CREADO EN EQUIPO</p><h2>Cuatro roles, un mismo <span class="accent">objetivo.</span></h2></div>
+        </div>
+        <div class="team-grid">
+          <article class="team-card team-cyan"><span class="team-role">01 / LÍDER GIT</span><span class="team-ornament" aria-hidden="true">01</span><h3>Samuel Eliseo Mendoza Gonzalez</h3><p>Gestiona el repositorio, GitHub Pages, la integración del equipo y las etiquetas de versión.</p></article>
+          <article class="team-card team-magenta"><span class="team-role">02 / DISEÑADORA UI</span><span class="team-ornament" aria-hidden="true">02</span><h3>Daniela Yamileth Rodriguez Zepeda</h3><p>Define la identidad visual, los estilos y una experiencia adaptable a cada pantalla.</p></article>
+          <article class="team-card team-amber"><span class="team-role">03 / CURADORA DE CONTENIDO</span><span class="team-ornament" aria-hidden="true">03</span><h3>Marcela Abigail Mata Escobar</h3><p>Cuida la calidad del contenido de las fichas y verifica los recursos y enlaces.</p></article>
+          <article class="team-card team-green"><span class="team-role">04 / QA Y ACCESIBILIDAD</span><span class="team-ornament" aria-hidden="true">04</span><h3>Nestor Eduardo Deodanes Martinez</h3><p>Realiza pruebas, revisión cruzada y comprobaciones de accesibilidad.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rubric-section" id="rubrica">
+      <div class="wrap rubric-layout">
+        <div><p class="eyebrow">05 / CRITERIOS DE CALIDAD</p><h2>La base para un HUB <span class="accent">útil.</span></h2><p class="section-intro">La guía del proyecto evalúa contenido, interactividad, accesibilidad y trabajo colaborativo. Estos son los compromisos que orientan el portal.</p></div>
+        <div class="rubric-list">
+          <article><span>01</span><div><h3>Contenido por módulo</h3><p>Resumen, instrumentos, programas, herramientas, recursos y evidencias.</p></div></article>
+          <article><span>02</span><div><h3>Interactividad</h3><p>Datos dinámicos, búsqueda, filtros, progreso guardado y quiz.</p></div></article>
+          <article><span>03</span><div><h3>Diseño accesible</h3><p>Navegación clara, contraste, teclado y experiencia responsive.</p></div></article>
+          <article><span>04</span><div><h3>Control de versiones</h3><p>Commits claros, revisiones en equipo y publicación en GitHub Pages.</p></div></article>
+          <article><span>05</span><div><h3>Dominio individual</h3><p>Cada integrante explica su aporte y demuestra comprensión del trabajo.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#inicio"><span class="brand-mark">H</span><span>HUB <b>3DS·A</b></span></a>
+      <p>Hecho para aprender, recordar y construir en comunidad.<br><span>INDEL · 3.º Desarrollo de Software «A»</span></p>
+      <a class="back-top" href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
