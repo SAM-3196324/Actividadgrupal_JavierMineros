@@ -210,6 +210,41 @@
     parent.append(section);
   }
 
+  function makeEvidenceSection(module) {
+    const section = make("section", "detail-block evidence-block");
+    const heading = make("h4", "", "Evidencias");
+    heading.id = "evidence-title-" + module.id;
+    heading.tabIndex = -1;
+    section.append(heading);
+
+    const list = make("ul", "evidence-list");
+    module.evidencias.forEach((evidence) => list.append(make("li", "", evidence)));
+    section.append(list);
+
+    const gallery = make("div", "evidence-gallery");
+    const images = Array.isArray(module.evidenceImages) ? module.evidenceImages : [];
+    if (images.length) {
+      images.forEach((evidence) => {
+        const figure = make("figure", "evidence-figure");
+        const image = document.createElement("img");
+        image.src = evidence.src;
+        image.alt = evidence.alt;
+        image.loading = "lazy";
+        figure.append(image);
+        if (evidence.caption) figure.append(make("figcaption", "", evidence.caption));
+        gallery.append(figure);
+      });
+    } else {
+      const placeholder = make("p", "evidence-placeholder");
+      placeholder.append(make("span", "evidence-placeholder-mark", "+"));
+      placeholder.append(make("span", "", "Espacio reservado para capturas de este módulo."));
+      placeholder.append(make("small", "", "Cuando compartas las imágenes, las agregamos aquí."));
+      gallery.append(placeholder);
+    }
+    section.append(gallery);
+    return section;
+  }
+
   function makeQuiz(module) {
     const details = make("details", "quiz-details");
     const summary = make("summary", "", "Poner a prueba lo aprendido · 3 preguntas");
@@ -282,6 +317,9 @@
 
     const footer = make("div", "card-footer");
     const owner = make("span", "module-owner", "Ficha: " + module.responsable);
+    const evidenceButton = make("button", "evidence-trigger", "Evidencias");
+    evidenceButton.type = "button";
+    evidenceButton.setAttribute("aria-controls", "evidence-title-" + module.id);
     const reviewedLabel = make("label", "review-label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -293,7 +331,7 @@
       updateProgress();
     });
     reviewedLabel.append(checkbox, make("span", "", "Revisado"));
-    footer.append(owner, reviewedLabel);
+    footer.append(owner, evidenceButton, reviewedLabel);
     article.append(footer);
 
     const details = make("details", "module-details");
@@ -304,7 +342,7 @@
     appendList(body, "Programas", module.programas);
     appendList(body, "Herramientas", module.herramientas, "inline-list");
     appendList(body, "Instrumentos", module.instrumentos);
-    appendList(body, "Evidencias", module.evidencias);
+    const evidenceSection = makeEvidenceSection(module);
 
     const resources = make("section", "detail-block");
     resources.append(make("h4", "", "Recursos para continuar"));
@@ -317,9 +355,18 @@
       resourceLinks.append(link);
     });
     resources.append(resourceLinks);
-    body.append(resources, makeQuiz(module));
+    body.append(evidenceSection, resources, makeQuiz(module));
     details.append(summary, body);
     article.append(details);
+    evidenceButton.addEventListener("click", () => {
+      details.open = true;
+      const heading = evidenceSection.querySelector("h4");
+      heading.focus({ preventScroll: true });
+      evidenceSection.scrollIntoView({
+        block: "center",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+      });
+    });
     return article;
   }
 
