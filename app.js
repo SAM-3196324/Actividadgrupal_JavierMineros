@@ -520,24 +520,29 @@
   function setupScrollEffects() {
     const header = document.querySelector(".site-header");
     let queued = false;
-    const updateHeader = () => {
+    const root = document.documentElement;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const updateScrollEffects = () => {
+      const scrollShift = prefersReducedMotion ? 0 : window.scrollY * 0.12;
+      root.style.setProperty("--scroll-shift", scrollShift.toFixed(1) + "px");
       header.classList.toggle("is-scrolled", window.scrollY > 24);
       queued = false;
     };
     window.addEventListener("scroll", () => {
       if (queued) return;
       queued = true;
-      requestAnimationFrame(updateHeader);
+      requestAnimationFrame(updateScrollEffects);
     }, { passive: true });
+    updateScrollEffects();
 
     const canTrackPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!canTrackPointer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!canTrackPointer || prefersReducedMotion) return;
     let frame = 0;
     document.addEventListener("pointermove", (event) => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        document.documentElement.style.setProperty("--ambient-x", event.clientX + "px");
-        document.documentElement.style.setProperty("--ambient-y", event.clientY + "px");
+        root.style.setProperty("--ambient-x", event.clientX + "px");
+        root.style.setProperty("--ambient-y", event.clientY + "px");
       });
     }, { passive: true });
   }
@@ -553,7 +558,6 @@
       renderModules();
       search.focus();
     });
-    document.getElementById("print-page").addEventListener("click", () => window.print());
     document.getElementById("reset-progress").addEventListener("click", () => {
       const confirmed = window.confirm("¿Quieres borrar las fichas revisadas y los resultados de quiz guardados en este navegador?");
       if (!confirmed) return;
