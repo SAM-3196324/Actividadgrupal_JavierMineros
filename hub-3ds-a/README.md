@@ -39,7 +39,7 @@ hub-3ds-a/
 - Galería modal independiente por módulo; las imágenes existentes pueden ampliarse y los enlaces externos se abren de forma segura.
 - Progreso de revisión guardado en `localStorage` con la clave `hub3dsa_dia2_v05_progress`; no modifica el progreso de otras versiones.
 - Autoevaluaciones complementarias para practicar; no representan exámenes oficiales ni resultados académicos.
-- Selector de tema claro/oscuro, navegación adaptable y animaciones que respetan la preferencia de movimiento reducido.
+- Selector de tema claro/oscuro con paleta verde musgo, oro, blanco y carbón; ondas doradas translúcidas acompañan el desplazamiento y respetan la preferencia de movimiento reducido.
 
 ## Contenido académico
 

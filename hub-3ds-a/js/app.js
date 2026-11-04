@@ -586,13 +586,15 @@
 
   function setupTheme() {
     const button = document.getElementById("theme-toggle");
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     const savedTheme = readStorage("theme", "light");
     document.documentElement.dataset.theme = savedTheme;
+    metaThemeColor.content = savedTheme === "light" ? "#E1E8DA" : "#18241B";
     updateThemeButton(button, savedTheme);
     button.addEventListener("click", () => {
       const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = nextTheme;
-      document.querySelector('meta[name="theme-color"]').content = nextTheme === "light" ? "#F7F3EE" : "#292326";
+      metaThemeColor.content = nextTheme === "light" ? "#E1E8DA" : "#18241B";
       writeStorage("theme", nextTheme);
       updateThemeButton(button, nextTheme);
     });
@@ -700,7 +702,11 @@
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const updateScrollEffects = () => {
       const scrollShift = prefersReducedMotion ? 0 : window.scrollY * 0.12;
+      const maxScroll = Math.max(1, root.scrollHeight - window.innerHeight);
+      const scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      const flowShift = prefersReducedMotion ? 0 : (scrollProgress - 0.5) * Math.min(window.innerHeight * 0.3, 240);
       root.style.setProperty("--scroll-shift", scrollShift.toFixed(1) + "px");
+      root.style.setProperty("--flow-shift", flowShift.toFixed(1) + "px");
       header.classList.toggle("is-scrolled", window.scrollY > 24);
       queued = false;
     };
