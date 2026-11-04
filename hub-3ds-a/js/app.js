@@ -3,6 +3,7 @@
 
   const modules = Array.isArray(window.MODULOS) ? window.MODULOS : [];
   const storagePrefix = "hub3dsa:";
+  const progressStorageKey = "hub3dsa_dia2_v05_progress";
   const grid = document.getElementById("module-grid");
   const search = document.getElementById("module-search");
   const categoryFilter = document.getElementById("category-filter");
@@ -15,6 +16,16 @@
   const liveRegion = document.getElementById("results-count");
   const technologyList = Array.isArray(window.TECNOLOGIAS) ? window.TECNOLOGIAS : [];
   const tiltBound = new WeakSet();
+  const moduleCards = new Map();
+  const evidenceDialog = document.getElementById("evidence-dialog");
+  const evidenceGallery = document.getElementById("evidence-gallery");
+  const evidenceModuleName = document.getElementById("evidence-module-name");
+  const evidencePreviewDialog = document.getElementById("evidence-preview-dialog");
+  const evidencePreviewImage = document.getElementById("evidence-preview-image");
+  const evidencePreviewCaption = document.getElementById("evidence-preview-caption");
+  let reviewState = loadReviewState();
+  let evidenceReturnFocus = null;
+  let previewReturnFocus = null;
 
   if (!modules.length) {
     console.error("No se cargaron módulos desde js/modulos.js.");
@@ -205,49 +216,196 @@
     const section = make("section", "detail-block");
     section.append(make("h4", "", title));
     const list = make("ul", className || "");
-    values.forEach((value) => list.append(make("li", "", value)));
+    if (!values.length) {
+      list.append(make("li", "", "Pendiente de confirmar en la guía del módulo."));
+    } else {
+      values.forEach((value) => {
+        const item = make("li");
+        if (typeof value === "string") {
+          item.textContent = value;
+        } else {
+          item.append(make("strong", "", value.nombre || value.titulo || ""));
+          if (value.descripcion) item.append(make("p", "detail-description", value.descripcion));
+        }
+        list.append(item);
+      });
+    }
     section.append(list);
     parent.append(section);
   }
 
+  function loadReviewState() {
+    try {
+      const saved = localStorage.getItem(progressStorageKey);
+      if (!saved) return {};
+      const parsed = JSON.parse(saved);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new TypeError("El progreso guardado no tiene el formato esperado.");
+      }
+      return Object.fromEntries(
+        modules
+          .filter((module) => parsed[module.codigo] === true)
+          .map((module) => [module.codigo, true])
+      );
+    } catch (error) {
+      console.warn("No se pudo leer el progreso del Día 2.", error);
+      return {};
+    }
+  }
+
+  function saveReviewState() {
+    try {
+      localStorage.setItem(progressStorageKey, JSON.stringify(reviewState));
+    } catch (error) {
+      console.warn("No se pudo guardar el progreso del Día 2 en este navegador.", error);
+    }
+  }
+
+  function normalizedText(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase("es");
+  }
+
+  function safeExternalUrl(value) {
+    try {
+      const url = new URL(value);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+    } catch (error) {
+      console.warn("Se omitió un enlace con formato no válido.", error);
+      return null;
+    }
+  }
+
+  function safeLocalPath(value) {
+    if (typeof value !== "string" || !value.trim() || value.startsWith("/") ||
+      value.startsWith("\\") || value.includes("..") || /^[a-z][a-z\d+.-]*:/i.test(value)) {
+      return null;
+    }
+    return value;
+  }
+
   function makeEvidenceSection(module) {
     const section = make("section", "detail-block evidence-block");
-    const heading = make("h4", "", "Evidencias");
-    heading.id = "evidence-title-" + module.id;
-    heading.tabIndex = -1;
-    section.append(heading);
-
-    const list = make("ul", "evidence-list");
-    module.evidencias.forEach((evidence) => list.append(make("li", "", evidence)));
-    section.append(list);
-
-    const gallery = make("div", "evidence-gallery");
-    const images = Array.isArray(module.evidenceImages) ? module.evidenceImages : [];
-    if (images.length) {
-      images.forEach((evidence) => {
-        const figure = make("figure", "evidence-figure");
-        const image = document.createElement("img");
-        image.src = evidence.src;
-        image.alt = evidence.alt;
-        image.loading = "lazy";
-        figure.append(image);
-        if (evidence.caption) figure.append(make("figcaption", "", evidence.caption));
-        gallery.append(figure);
-      });
-    } else {
-      const placeholder = make("p", "evidence-placeholder");
-      placeholder.append(make("span", "evidence-placeholder-mark", "+"));
-      placeholder.append(make("span", "", "Espacio reservado para capturas de este módulo."));
-      placeholder.append(make("small", "", "Cuando compartas las imágenes, las agregamos aquí."));
-      gallery.append(placeholder);
-    }
-    section.append(gallery);
+    section.append(make("h4", "", "Evidencia"));
+    const description = make("p", "evidence-intro", module.evidencias.length
+      ? "Consulta los archivos y enlaces asociados únicamente con este módulo."
+      : "Aún no se han agregado evidencias para este módulo.");
+    const button = make("button", "evidence-trigger", "Evidencia del módulo");
+    button.type = "button";
+    button.addEventListener("click", () => openEvidenceGallery(module, button));
+    section.append(description, button);
     return section;
+  }
+
+  function makeEvidenceCard(evidence) {
+    const article = make("article", "evidence-item");
+    article.append(make("span", "evidence-type", evidence.tipo || "Evidencia"));
+    article.append(make("h3", "evidence-item-title", evidence.titulo));
+    if (evidence.descripcion) article.append(make("p", "evidence-item-description", evidence.descripcion));
+
+    if (evidence.tipo === "imagen") {
+      const path = safeLocalPath(evidence.ruta);
+      if (!path) {
+        console.warn("Se omitió una ruta de imagen no válida.", evidence.ruta);
+        return null;
+      }
+      const previewButton = make("button", "evidence-preview-trigger");
+      previewButton.type = "button";
+      previewButton.setAttribute("aria-label", "Ampliar imagen: " + evidence.titulo);
+      const image = document.createElement("img");
+      image.src = path;
+      image.alt = evidence.alt || evidence.titulo;
+      image.loading = "lazy";
+      image.addEventListener("error", () => {
+        if (!evidenceGallery.contains(article)) return;
+        console.error("No se pudo cargar la evidencia: " + path);
+        article.remove();
+        if (!evidenceGallery.querySelector(".evidence-item")) {
+          evidenceGallery.replaceChildren(make("p", "dialog-empty", "No se pudieron cargar las evidencias disponibles."));
+        }
+      }, { once: true });
+      previewButton.append(image);
+      previewButton.addEventListener("click", () => openEvidencePreview(evidence, previewButton));
+      article.append(previewButton);
+      return article;
+    }
+
+    const href = evidence.url ? safeExternalUrl(evidence.url) : safeLocalPath(evidence.ruta);
+    if (!href) {
+      console.warn("Se omitió una evidencia sin una ruta o enlace válido.", evidence.titulo);
+      return null;
+    }
+    const link = make("a", "evidence-link", evidence.tipo === "documento" ? "Abrir documento" : "Abrir recurso");
+    link.href = href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    article.append(link);
+    return article;
+  }
+
+  function openEvidenceGallery(module, trigger) {
+    evidenceReturnFocus = trigger;
+    evidenceModuleName.textContent = module.codigo + " · " + module.nombre;
+    evidenceGallery.replaceChildren();
+    if (!module.evidencias.length) {
+      evidenceGallery.append(make("p", "dialog-empty", "Aún no se han agregado evidencias para este módulo."));
+    } else {
+      module.evidencias.forEach((evidence) => {
+        const card = makeEvidenceCard(evidence);
+        if (card) evidenceGallery.append(card);
+      });
+      if (!evidenceGallery.childElementCount) {
+        evidenceGallery.append(make("p", "dialog-empty", "Aún no se han agregado evidencias para este módulo."));
+      }
+    }
+    evidenceDialog.showModal();
+    document.getElementById("evidence-dialog-close").focus();
+  }
+
+  function openEvidencePreview(evidence, trigger) {
+    previewReturnFocus = trigger;
+    evidencePreviewImage.src = evidence.ruta;
+    evidencePreviewImage.alt = evidence.alt || evidence.titulo;
+    evidencePreviewCaption.textContent = evidence.titulo + (evidence.descripcion ? " · " + evidence.descripcion : "");
+    evidencePreviewDialog.showModal();
+    document.getElementById("evidence-preview-close").focus();
+  }
+
+  function setupEvidenceDialogs() {
+    document.getElementById("evidence-dialog-close").addEventListener("click", () => evidenceDialog.close());
+    document.getElementById("evidence-preview-close").addEventListener("click", () => evidencePreviewDialog.close());
+    [evidenceDialog, evidencePreviewDialog].forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        if (dialog.open) dialog.close();
+      });
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const topDialog = evidencePreviewDialog.open
+        ? evidencePreviewDialog
+        : evidenceDialog.open ? evidenceDialog : null;
+      if (!topDialog) return;
+      event.preventDefault();
+      topDialog.close();
+    });
+    evidenceDialog.addEventListener("close", () => {
+      if (evidenceReturnFocus && evidenceReturnFocus.isConnected) evidenceReturnFocus.focus();
+    });
+    evidencePreviewDialog.addEventListener("close", () => {
+      evidencePreviewImage.removeAttribute("src");
+      if (previewReturnFocus && previewReturnFocus.isConnected) previewReturnFocus.focus();
+    });
   }
 
   function makeQuiz(module) {
     const details = make("details", "quiz-details");
-    const summary = make("summary", "", "Poner a prueba lo aprendido · 3 preguntas");
+    const summary = make("summary", "", "Autoevaluación complementaria · " + module.quiz.length + " preguntas");
     const form = make("form", "quiz-form");
     form.dataset.moduleId = module.id;
 
@@ -298,109 +456,122 @@
   }
 
   function makeCard(module) {
-    const article = make("article", "module-card accent-" + module.color);
-    article.dataset.category = module.area;
-    article.dataset.owner = module.responsable;
+    const article = make("article", "module-card");
+    article.dataset.category = module.categoria;
 
     const header = make("div", "card-topline");
-    header.append(make("span", "category-tag", module.area.toUpperCase()));
-    header.append(make("span", "module-id", module.id));
+    header.append(make("span", "category-tag", module.categoria.toUpperCase()));
+    header.append(make("span", "module-id", module.codigo));
     article.append(header);
 
-    article.append(make("h3", "module-title", module.titulo));
+    article.append(make("h3", "module-title", module.nombre));
     article.append(make("p", "module-summary", module.resumen));
 
     const chips = make("ul", "technology-list");
-    chips.setAttribute("aria-label", "Tecnologías");
-    module.herramientas.forEach((tool) => chips.append(make("li", "", tool)));
-    article.append(chips);
+    chips.setAttribute("aria-label", "Programas y herramientas");
+    [...new Set([...module.programas, ...module.herramientas])].forEach((tool) => {
+      chips.append(make("li", "", tool));
+    });
+    if (chips.childElementCount) article.append(chips);
 
     const footer = make("div", "card-footer");
-    const owner = make("span", "module-owner", "Ficha: " + module.responsable);
-    const evidenceButton = make("button", "evidence-trigger", "Evidencias");
-    evidenceButton.type = "button";
-    evidenceButton.setAttribute("aria-controls", "evidence-title-" + module.id);
+    const owner = make("span", "module-owner", "Docente: " + module.docente.join(" · "));
     const reviewedLabel = make("label", "review-label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "review-checkbox";
-    checkbox.checked = readStorage("review:" + module.id, "false") === "true";
-    checkbox.setAttribute("aria-label", "Marcar " + module.titulo + " como revisado");
+    checkbox.checked = reviewState[module.codigo] === true;
+    checkbox.setAttribute("aria-label", "Marcar " + module.codigo + " como revisado");
     checkbox.addEventListener("change", () => {
-      writeStorage("review:" + module.id, String(checkbox.checked));
+      if (checkbox.checked) reviewState[module.codigo] = true;
+      else delete reviewState[module.codigo];
+      article.classList.toggle("is-reviewed", checkbox.checked);
+      saveReviewState();
       updateProgress();
     });
-    reviewedLabel.append(checkbox, make("span", "", "Revisado"));
-    footer.append(owner, evidenceButton, reviewedLabel);
+    reviewedLabel.append(checkbox, make("span", "", "Marcar como revisado"));
+    footer.append(owner, reviewedLabel);
     article.append(footer);
+    article.classList.toggle("is-reviewed", checkbox.checked);
 
     const details = make("details", "module-details");
-    const summary = make("summary", "", "Abrir ficha del módulo");
+    const summary = make("summary", "", "Ver ficha completa");
     const body = make("div", "module-detail-content");
-    body.append(make("p", "teacher-line", "Docentes: " + module.docentes.join(" · ")));
-    appendList(body, "Lo que aprendimos", module.aprendizajes);
+    appendList(body, "Aprendizajes clave", module.aprendizajesClave);
+    appendList(body, "Instrumentos", module.instrumentos);
     appendList(body, "Programas", module.programas);
     appendList(body, "Herramientas", module.herramientas, "inline-list");
-    appendList(body, "Instrumentos", module.instrumentos);
-    const evidenceSection = makeEvidenceSection(module);
 
     const resources = make("section", "detail-block");
-    resources.append(make("h4", "", "Recursos para continuar"));
+    resources.append(make("h4", "", "Recursos oficiales para continuar"));
     const resourceLinks = make("div", "resource-links");
     module.recursos.forEach((resource) => {
-      const link = make("a", "", resource.nombre);
-      link.href = resource.url;
+      const href = safeExternalUrl(resource.url);
+      if (!href) return;
+      const item = make("article", "resource-item");
+      const link = make("a", "", resource.titulo);
+      link.href = href;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      resourceLinks.append(link);
+      item.append(link, make("p", "resource-description", resource.descripcion));
+      resourceLinks.append(item);
     });
+    if (!resourceLinks.childElementCount) {
+      resourceLinks.append(make("p", "pending-note", "Recurso específico pendiente de confirmar con la guía del módulo."));
+    }
     resources.append(resourceLinks);
-    body.append(evidenceSection, resources, makeQuiz(module));
+    body.append(makeEvidenceSection(module), resources);
+    if (Array.isArray(module.quiz) && module.quiz.length) body.append(makeQuiz(module));
     details.append(summary, body);
     article.append(details);
-    evidenceButton.addEventListener("click", () => {
-      details.open = true;
-      const heading = evidenceSection.querySelector("h4");
-      heading.focus({ preventScroll: true });
-      evidenceSection.scrollIntoView({
-        block: "center",
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
-      });
-    });
     return article;
   }
 
   function fillFilters() {
-    const categories = [...new Set(modules.map((module) => module.area))].sort((a, b) => a.localeCompare(b, "es"));
+    const categories = [...new Set(modules.map((module) => module.categoria))].sort((a, b) => a.localeCompare(b, "es"));
     categories.forEach((category) => categoryFilter.append(new Option(category, category)));
-    const owners = [...new Set(modules.map((module) => module.responsable))].sort((a, b) => a.localeCompare(b, "es"));
+    const owners = [...new Set(modules.flatMap((module) => module.docente))].sort((a, b) => a.localeCompare(b, "es"));
     owners.forEach((owner) => ownerFilter.append(new Option(owner, owner)));
   }
 
   function renderModules() {
-    const query = search.value.trim().toLocaleLowerCase("es");
+    if (!moduleCards.size) {
+      modules.forEach((module) => {
+        const card = makeCard(module);
+        moduleCards.set(module.codigo, card);
+      });
+      grid.replaceChildren(...moduleCards.values());
+      observeReveals(grid);
+      bindTilt(grid.querySelectorAll(".module-card"));
+    }
+
+    const query = normalizedText(search.value.trim());
     const category = categoryFilter.value;
     const owner = ownerFilter.value;
-    const filtered = modules.filter((module) => {
-      const searchable = [
-        module.titulo, module.area, module.resumen, module.responsable,
-        ...module.docentes, ...module.aprendizajes, ...module.programas,
-        ...module.herramientas, ...module.instrumentos
-      ].join(" ").toLocaleLowerCase("es");
-      return searchable.includes(query) &&
-        (category === "all" || module.area === category) &&
-        (owner === "all" || module.responsable === owner);
+    let visibleCount = 0;
+    modules.forEach((module) => {
+      const card = moduleCards.get(module.codigo);
+      const searchable = normalizedText([
+        module.codigo, module.nombre, module.categoria, module.resumen,
+        ...module.docente, ...module.programas, ...module.herramientas,
+        ...module.aprendizajesClave,
+        ...module.instrumentos.flatMap((item) => [item.nombre, item.descripcion]),
+        ...module.recursos.flatMap((item) => [item.titulo, item.descripcion]),
+        ...module.evidencias.flatMap((item) => [item.titulo, item.descripcion])
+      ].join(" "));
+      const matches = searchable.includes(query) &&
+        (category === "all" || module.categoria === category) &&
+        (owner === "all" || module.docente.includes(owner));
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
     });
-    grid.replaceChildren(...filtered.map(makeCard));
-    emptyState.hidden = filtered.length !== 0;
-    liveRegion.textContent = filtered.length + (filtered.length === 1 ? " módulo" : " módulos");
+    emptyState.hidden = visibleCount !== 0;
+    liveRegion.textContent = "Mostrando " + visibleCount + " de " + modules.length + " módulos";
     updateProgress();
-    observeReveals(grid);
-    bindTilt(grid.querySelectorAll(".module-card"));
   }
 
   function updateProgress() {
-    const checked = modules.filter((module) => readStorage("review:" + module.id, "false") === "true").length;
+    const checked = modules.filter((module) => reviewState[module.codigo] === true).length;
     const percentage = modules.length ? Math.round((checked / modules.length) * 100) : 0;
     progressValue.textContent = percentage + "%";
     progressCaption.textContent = checked + " de " + modules.length + " módulos revisados";
@@ -551,28 +722,39 @@
     [search, categoryFilter, ownerFilter].forEach((control) => {
       control.addEventListener(control === search ? "input" : "change", renderModules);
     });
-    document.getElementById("clear-filters").addEventListener("click", () => {
+    const clearFilters = () => {
       search.value = "";
       categoryFilter.value = "all";
       ownerFilter.value = "all";
       renderModules();
       search.focus();
-    });
+    };
+    document.getElementById("clear-filters").addEventListener("click", clearFilters);
+    document.getElementById("clear-empty-filters").addEventListener("click", clearFilters);
     document.getElementById("reset-progress").addEventListener("click", () => {
-      const confirmed = window.confirm("¿Quieres borrar las fichas revisadas y los resultados de quiz guardados en este navegador?");
+      const confirmed = window.confirm("¿Quieres reiniciar el progreso y las autoevaluaciones del Día 2 guardados en este navegador?");
       if (!confirmed) return;
-      modules.forEach((module) => {
-        try {
-          localStorage.removeItem(storagePrefix + "review:" + module.id);
-          localStorage.removeItem(storagePrefix + "quiz:" + module.id);
-        } catch (error) {
-          console.warn("No se pudo borrar el progreso guardado.", error);
+      reviewState = {};
+      try {
+        localStorage.removeItem(progressStorageKey);
+        modules.forEach((module) => localStorage.removeItem(storagePrefix + "quiz:" + module.id));
+      } catch (error) {
+        console.warn("No se pudo borrar por completo el progreso del Día 2.", error);
+      }
+      moduleCards.forEach((card) => {
+        card.classList.remove("is-reviewed");
+        card.querySelector(".review-checkbox").checked = false;
+        const feedback = card.querySelector(".quiz-feedback");
+        if (feedback) {
+          feedback.textContent = "";
+          feedback.classList.remove("is-success");
         }
       });
-      renderModules();
+      updateProgress();
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
+      if (event.key === "/" && !evidenceDialog.open && !evidencePreviewDialog.open &&
+        !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
         event.preventDefault();
         search.focus();
       }
@@ -584,6 +766,7 @@
   setupTheme();
   setupNavigation();
   setupTechnologyCarousel();
+  setupEvidenceDialogs();
   setupActions();
   renderModules();
   setupEditorialMotion();

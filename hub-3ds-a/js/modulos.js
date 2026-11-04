@@ -1,191 +1,277 @@
 window.MODULOS = [
   {
-    id: "sql-server-velvetheel",
-    titulo: "Bases de datos avanzadas",
-    area: "Datos",
-    color: "cyan",
-    resumen: "Diseñamos la base de datos de VelvetHeel y practicamos consultas, relaciones y tareas de administración en SQL Server.",
-    aprendizajes: ["Modelar tablas relacionadas para una empresa simulada.", "Crear consultas, funciones y procedimientos almacenados.", "Preparar respaldos y tareas programadas de mantenimiento."],
-    responsable: "Samuel Eliseo Mendoza Gonzalez",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["SQL Server", "SQL Server Management Studio"],
-    herramientas: ["SQL", "Tablas relacionales", "Procedimientos almacenados", "Backups"],
-    instrumentos: ["Prácticas guiadas de bases de datos", "Ejercicios de consultas y relaciones", "Revisión del proyecto VelvetHeel"],
-    evidencias: ["Base de datos de la empresa simulada VelvetHeel", "Consultas, procedimientos y funciones", "Respaldo automatizado programado"],
-    evidenceImages: [{src:"img/VelvetHeel.png", alt:"Código SQL de creación de la base de datos VelvetHeel y de sus tablas de categorías.", caption:"Base de datos SQL Server del proyecto VelvetHeel."}],
-    recursos: [{nombre:"Documentación de SQL Server", url:"https://learn.microsoft.com/es-es/sql/sql-server/?view=sql-server-ver16"}],
+    id: "btvds-3-0",
+    codigo: "BTVDS 3.0",
+    nombre: "Orientación al estudiante al proceso educativo",
+    categoria: "Orientación",
+    docente: ["Javier Mineros"],
+    resumen: "Repaso de la orientación y el proceso educativo mediante una actividad diagnóstica en Kahoot. La evidencia muestra los resultados de participación; sirve como punto de partida para reconocer conocimientos previos.",
+    aprendizajesClave: [
+      "Identificar el propósito y las etapas del proceso educativo correspondiente al módulo.",
+      "Reconocer los recursos y apoyos necesarios para organizar el aprendizaje.",
+      "Relacionar la participación responsable con el avance del proceso formativo."
+    ],
+    instrumentos: [
+      { nombre: "Actividad diagnóstica en Kahoot", descripcion: "Revisión participativa de conocimientos previos y de los resultados obtenidos." }
+    ],
+    programas: ["Kahoot"],
+    herramientas: ["Evaluación diagnóstica", "Participación y seguimiento del aprendizaje"],
+    recursos: [
+      { titulo: "Ministerio de Educación, Ciencia y Tecnología de El Salvador", url: "https://www.mined.gob.sv/", tipo: "institucional", descripcion: "Portal institucional para consultar información y recursos educativos oficiales." }
+    ],
+    evidencias: [
+      { titulo: "Resultados de la actividad en Kahoot", descripcion: "Captura de la clasificación y los resultados de la actividad diagnóstica.", tipo: "imagen", ruta: "img/Kahoot.jpeg", alt: "Pantalla de resultados de una actividad diagnóstica en Kahoot con la clasificación de participantes." }
+    ],
     quiz: [
-      {pregunta:"¿Qué permite expresar un modelo relacional?", opciones:["Relaciones entre tablas mediante claves","Estilos de una página web","Eventos de una interfaz"], respuesta:0},
-      {pregunta:"¿Para qué se usa un procedimiento almacenado?", opciones:["Guardar y ejecutar instrucciones SQL en el servidor","Dibujar gráficas en el navegador","Instalar SQL Server"], respuesta:0},
-      {pregunta:"¿Cuál es el propósito de un backup?", opciones:["Conservar una copia recuperable de los datos","Cambiar el tipo de letra de una consulta","Crear una tabla temporal"], respuesta:0}
+      { pregunta: "¿Qué conviene hacer al iniciar un proceso de aprendizaje?", opciones: ["Identificar objetivos y recursos disponibles", "Omitir las instrucciones", "Evitar revisar el avance"], respuesta: 0 },
+      { pregunta: "¿Para qué sirve revisar el progreso de aprendizaje?", opciones: ["Reconocer avances y necesidades de apoyo", "Sustituir todos los objetivos", "Evitar la planificación"], respuesta: 0 },
+      { pregunta: "¿Qué acción favorece la participación responsable?", opciones: ["Consultar y utilizar los recursos de apoyo", "Ignorar las indicaciones", "Dejar de comunicar dificultades"], respuesta: 0 }
     ]
   },
   {
-    id: "power-bi-wikipedia",
-    titulo: "Business Intelligence y análisis",
-    area: "Datos",
-    color: "amber",
-    resumen: "Importamos y analizamos datos de Excel y SQL Server con Power BI; también exploramos la extracción de información de páginas de Wikipedia.",
-    aprendizajes: ["Importar y preparar datos de distintas fuentes.", "Elegir visualizaciones según la pregunta que se quiere responder.", "Aplicar filtros para explorar patrones y métricas."],
-    responsable: "Daniela Yamileth Rodriguez Zepeda",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Power BI", "Microsoft Excel"],
-    herramientas: ["Filtros", "Visualizaciones", "Modelado de datos", "Web scraping"],
-    instrumentos: ["Prácticas de importación de datos", "Ejercicios de filtros y gráficos", "Análisis de información extraída de Wikipedia"],
-    evidencias: ["Reporte interactivo con filtros", "Gráficos de datos seleccionados", "Conjunto de datos explorado desde Wikipedia"],
-    evidenceImages: [{src:"img/PowerBi.jpeg", alt:"Reporte de Power BI con indicadores, visualizaciones de ventas y filtros de pedidos.", caption:"Reporte interactivo construido en Power BI."}],
-    recursos: [{nombre:"Aprender Power BI", url:"https://learn.microsoft.com/es-es/training/powerplatform/power-bi/"}],
+    id: "btvds-3-1",
+    codigo: "BTVDS 3.1",
+    nombre: "Desarrollo de aplicaciones de software para la solución de problemas",
+    categoria: "Desarrollo de software",
+    docente: ["Francisco Arcides Canales Sorto"],
+    resumen: "Desarrollo de aplicaciones para resolver necesidades concretas, con una evidencia de una aplicación de gestión para una tienda de mascotas. Su menú organiza registros, citas, inventario e historial; también se relaciona con prácticas de escritorio y fundamentos de Python.",
+    aprendizajesClave: [
+      "Analizar una necesidad para delimitar el problema que una aplicación debe atender.",
+      "Organizar la solución en componentes y describir el comportamiento esperado.",
+      "Probar una aplicación y revisar sus resultados frente al problema planteado."
+    ],
+    instrumentos: [
+      { nombre: "Análisis de una necesidad y propuesta de solución", descripcion: "Práctica de repaso para relacionar las funciones de una aplicación con el problema que busca resolver." },
+      { nombre: "Revisión funcional de la aplicación", descripcion: "Comprobar el flujo de pantallas, entradas y resultados de las prácticas disponibles." }
+    ],
+    programas: [".NET MAUI", "Visual Studio", "Visual Studio Code"],
+    herramientas: ["C#", "Desarrollo de aplicaciones", "Análisis de problemas", "CRUD", "Python"],
+    recursos: [
+      { titulo: "MDN: aprendizaje del desarrollo web", url: "https://developer.mozilla.org/es/docs/Learn_web_development", tipo: "documentacion", descripcion: "Material de referencia para comprender conceptos y tecnologías de desarrollo web." }
+    ],
+    evidencias: [
+      { titulo: "Aplicación de gestión para una tienda de mascotas", descripcion: "Menú de la aplicación Great Pets con accesos a registros, citas, inventario e historial.", tipo: "imagen", ruta: "img/Maui.png", alt: "Menú de una aplicación de gestión para una tienda de mascotas con opciones de registros, citas, inventario e historial." },
+      { titulo: "Aplicación de escritorio con Windows Forms", descripcion: "Captura de una aplicación de práctica para el cálculo de notas.", tipo: "imagen", ruta: "img/WindowsForm.jpeg", alt: "Aplicación Windows Forms para calcular notas de un estudiante." },
+      { titulo: "Práctica inicial de Python", descripcion: "Captura de un ejercicio con variables y operaciones básicas.", tipo: "imagen", ruta: "img/Python.jpeg", alt: "Código de una práctica inicial de Python con variables y operaciones básicas." }
+    ],
     quiz: [
-      {pregunta:"¿Qué ayuda a hacer un filtro en un reporte?", opciones:["Restringir los datos visibles según un criterio","Borrar la fuente original","Cambiar la contraseña de la base"], respuesta:0},
-      {pregunta:"¿Qué conviene hacer antes de elegir una gráfica?", opciones:["Definir qué comparación o patrón se quiere mostrar","Elegir el color favorito","Ocultar los valores"], respuesta:0},
-      {pregunta:"¿Qué es una fuente de datos para Power BI?", opciones:["Un origen desde el cual se importan datos","Un tipo de animación","Un formato de imagen"], respuesta:0}
+      { pregunta: "¿Qué debe identificarse antes de diseñar una aplicación?", opciones: ["La necesidad y el problema que se busca resolver", "El color final de cada botón", "La cantidad de líneas de código"], respuesta: 0 },
+      { pregunta: "¿Qué ayuda a describir el comportamiento esperado?", opciones: ["Requisitos claros", "Una captura sin contexto", "El nombre del archivo"], respuesta: 0 },
+      { pregunta: "¿Por qué se prueba una aplicación?", opciones: ["Para comprobar su comportamiento frente a los requisitos", "Para evitar comprender el código", "Para sustituir la solución"], respuesta: 0 }
     ]
   },
   {
-    id: "desarrollo-escritorio-dotnet",
-    titulo: "Aplicaciones de escritorio con .NET",
-    area: "Desarrollo",
-    color: "magenta",
-    resumen: "Diseñamos primero en papel un control de notas y llevamos su lógica a Windows Forms; después conocimos WPF y Avalonia UI.",
-    aprendizajes: ["Planificar una interfaz antes de programarla.", "Conectar controles visuales con lógica de aplicación.", "Comparar distintos enfoques para crear interfaces de escritorio."],
-    responsable: "Samuel Eliseo Mendoza Gonzalez",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Visual Studio Community"],
-    herramientas: ["C#", "Windows Forms", "WPF", "Avalonia UI"],
-    instrumentos: ["Diseño de interfaz en cuaderno", "Ejercicio práctico de control de notas", "Comparación de frameworks de escritorio"],
-    evidencias: ["Prototipo del control de notas", "Aplicación de escritorio con interacción", "Prácticas de exploración de WPF y Avalonia"],
-    evidenceImages: [{src:"img/WindowsForm.jpeg", alt:"Aplicación Windows Forms para calcular notas de un estudiante, con campos de actividades, examen e integradora.", caption:"Control de notas desarrollado con Windows Forms."}],
-    recursos: [{nombre:"Documentación de .NET", url:"https://learn.microsoft.com/es-es/dotnet/"}],
+    id: "btvds-3-2",
+    codigo: "BTVDS 3.2",
+    nombre: "Mantenimiento y aseguramiento de la operación del sistema informático",
+    categoria: "Mantenimiento",
+    docente: ["Francisco Arcides Canales Sorto"],
+    resumen: "Mantenimiento y aseguramiento de la operación de un sistema informático. El repaso relaciona la identificación de componentes y la revisión de información del sistema con el diagnóstico, el mantenimiento preventivo y el registro técnico.",
+    aprendizajesClave: [
+      "Reconocer la importancia de mantener los componentes de un sistema informático.",
+      "Relacionar las acciones de mantenimiento con la continuidad de la operación.",
+      "Documentar observaciones técnicas para facilitar el seguimiento de una intervención."
+    ],
+    instrumentos: [
+      { nombre: "Ficha de identificación del sistema", descripcion: "Organizar la información del equipo y del sistema operativo como apoyo para el diagnóstico." },
+      { nombre: "Lista de comprobación de mantenimiento", descripcion: "Repasar el estado del equipo y documentar las observaciones realizadas." }
+    ],
+    programas: ["Windows", "Configuración del sistema", "msinfo32"],
+    herramientas: ["Mantenimiento preventivo", "Diagnóstico técnico", "Inventario de hardware y software", "Registro de intervenciones"],
+    recursos: [
+      { titulo: "Microsoft Learn: solución de problemas de cliente de Windows", url: "https://learn.microsoft.com/es-es/troubleshoot/windows-client/", tipo: "documentacion", descripcion: "Biblioteca oficial con información de diagnóstico y soporte para sistemas cliente Windows." }
+    ],
+    evidencias: [
+      { titulo: "Documento sobre una plataforma web", descripcion: "Fotografía de un documento académico que presenta una propuesta de plataforma web para publicar y leer ensayos y artículos.", tipo: "imagen", ruta: "img/Sistema.jpeg", alt: "Documento académico fotografiado en un cuaderno sobre una plataforma web para publicar y leer ensayos y artículos." },
+      { titulo: "Actividad práctica de soporte técnico", descripcion: "Imagen de una actividad práctica relacionada con componentes y soporte técnico.", tipo: "imagen", ruta: "img/ComponentesPC.jpeg", alt: "Integrante del equipo durante una actividad práctica de soporte técnico." }
+    ],
     quiz: [
-      {pregunta:"¿Qué conviene realizar antes de implementar una interfaz?", opciones:["Planificar su estructura y flujo","Borrar los requisitos","Publicar sin probar"], respuesta:0},
-      {pregunta:"¿Cuál de estas tecnologías se usa para interfaces de escritorio en .NET?", opciones:["Windows Forms","SQLite","Power BI"], respuesta:0},
-      {pregunta:"¿Qué representa un evento en una aplicación visual?", opciones:["Una acción que la interfaz puede responder","Una copia de seguridad","Una consulta SQL"], respuesta:0}
+      { pregunta: "¿Cuál es un objetivo del mantenimiento de un sistema informático?", opciones: ["Contribuir a que sus componentes operen correctamente", "Eliminar la necesidad de diagnóstico", "Evitar registrar las intervenciones"], respuesta: 0 },
+      { pregunta: "¿Qué aporta un diagnóstico técnico?", opciones: ["Información para orientar una intervención", "Una garantía de que no se requieren pruebas", "Un reemplazo de la documentación"], respuesta: 0 },
+      { pregunta: "¿Por qué conviene documentar una intervención?", opciones: ["Para mantener un registro consultable de lo realizado", "Para ocultar el estado del sistema", "Para evitar el seguimiento"], respuesta: 0 }
     ]
   },
   {
-    id: "python-sqlite",
-    titulo: "Python y SQLite",
-    area: "Desarrollo",
-    color: "green",
-    resumen: "Repasamos fundamentos de Python, lógica, programación orientada a objetos y almacenamiento local con SQLite.",
-    aprendizajes: ["Usar variables, condicionales y bucles.", "Organizar código con funciones, módulos y conceptos de POO.", "Comprender el uso de SQLite para almacenar información."],
-    responsable: "Marcela Abigail Mata Escobar",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Python", "Visual Studio Code"],
-    herramientas: ["Variables y tipos", "Condicionales", "Bucles", "POO", "SQLite"],
-    instrumentos: ["Ejercicios de lógica y sumatorias", "Prácticas de condicionales y bucles", "Comparación de lenguajes y herramientas"],
-    evidencias: ["Ejercicios de Python", "Prácticas con librerías y POO", "Ejemplo de almacenamiento con SQLite"],
-    evidenceImages: [{src:"img/Python.jpeg", alt:"Código de una práctica inicial de Python con variables de estudiante, operaciones básicas y cadenas f.", caption:"Ejercicios de variables y operaciones en Python."}],
-    recursos: [{nombre:"Tutorial oficial de Python", url:"https://docs.python.org/es/3/tutorial/"}],
+    id: "btvds-3-3",
+    codigo: "BTVDS 3.3",
+    nombre: "Administración de base de datos",
+    categoria: "Bases de datos",
+    docente: ["Javier Mineros"],
+    resumen: "Módulo de administración de bases de datos relacionado con el proyecto VelvetHeel. El trabajo anual incluyó el uso de SQL Server; los detalles de evaluación del Día 2 están pendientes de confirmar.",
+    aprendizajesClave: [
+      "Reconocer el papel de la administración de bases de datos en una solución informática.",
+      "Relacionar tablas, consultas y tareas de administración con el proyecto VelvetHeel.",
+      "Consultar documentación técnica para respaldar decisiones sobre una base de datos."
+    ],
+    instrumentos: [
+      { nombre: "Proyecto de base de datos VelvetHeel", descripcion: "Proyecto relacionado con la administración de bases de datos; la guía o rúbrica específica está pendiente de confirmar." }
+    ],
+    programas: ["SQL Server", "Microsoft SQL Server Management Studio (SSMS)"],
+    herramientas: ["SQL", "Administración de bases de datos", "Modelado de datos"],
+    recursos: [
+      { titulo: "Documentación de SQL Server", url: "https://learn.microsoft.com/es-es/sql/sql-server/?view=sql-server-ver16", tipo: "documentacion", descripcion: "Documentación oficial de Microsoft SQL Server." }
+    ],
+    evidencias: [
+      { titulo: "Base de datos del proyecto VelvetHeel", descripcion: "Captura del código SQL del proyecto VelvetHeel.", tipo: "imagen", ruta: "img/VelvetHeel.png", alt: "Código SQL de creación de la base de datos VelvetHeel y de sus tablas de categorías." }
+    ],
     quiz: [
-      {pregunta:"¿Qué estructura permite repetir instrucciones mientras se cumpla una condición?", opciones:["Bucle","Etiqueta HTML","Clave primaria"], respuesta:0},
-      {pregunta:"¿Qué es una clase en programación orientada a objetos?", opciones:["Una plantilla para crear objetos","Una consulta de selección","Un tipo de gráfico"], respuesta:0},
-      {pregunta:"¿Para qué puede usarse SQLite?", opciones:["Guardar datos en una base local","Diseñar una página con CSS","Compilar C#"], respuesta:0}
+      { pregunta: "¿Qué función cumplen las tablas en una base de datos relacional?", opciones: ["Organizar datos en estructuras relacionadas", "Definir los colores de una interfaz", "Ejecutar el sistema operativo"], respuesta: 0 },
+      { pregunta: "¿Qué se utiliza para consultar y administrar datos en SQL Server?", opciones: ["Instrucciones SQL", "Reglas CSS", "Etiquetas de imagen"], respuesta: 0 },
+      { pregunta: "¿Qué debe consultarse antes de aplicar una tarea administrativa?", opciones: ["La documentación y los requisitos de la base", "Únicamente el nombre de la base", "Una herramienta no relacionada"], respuesta: 0 }
     ]
   },
   {
-    id: "php-mysql",
-    titulo: "Programación web con PHP y MySQL",
-    area: "Desarrollo",
-    color: "cyan",
-    resumen: "Trabajamos con un entorno local XAMPP, formularios y operaciones CRUD para conectar aplicaciones web con MySQL.",
-    aprendizajes: ["Levantar un entorno local para desarrollar con PHP.", "Conectar formularios y lógica del servidor con una base de datos.", "Organizar una aplicación por capas y usar sesiones."],
-    responsable: "Marcela Abigail Mata Escobar",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["XAMPP", "Visual Studio Code"],
-    herramientas: ["PHP", "MySQL", "PDO", "Formularios", "CRUD", "Sesiones"],
-    instrumentos: ["Práctica de entorno local y formularios", "Ejercicio CRUD", "Refactor de estructura de proyecto"],
-    evidencias: ["Formulario PHP ejecutado localmente", "Gestor de productos CRUD", "Ejercicio de autenticación y sesiones"],
-    evidenceImages: [{src:"img/Xampp.jpeg", alt:"Tienda virtual de café abierta en el navegador junto al panel de control de XAMPP.", caption:"Tienda virtual de práctica ejecutada en el entorno local XAMPP."}],
-    recursos: [{nombre:"Manual de PHP", url:"https://www.php.net/manual/es/"},{nombre:"Documentación MySQL", url:"https://dev.mysql.com/doc/"}],
+    id: "btvds-3-4",
+    codigo: "BTVDS 3.4",
+    nombre: "Elaboración de documentación de sistemas informáticos",
+    categoria: "Documentación",
+    docente: ["Javier Mineros"],
+    resumen: "Documentación de sistemas informáticos con apoyo en la descripción de interfaces, formularios y sus respuestas ante entradas no válidas. La captura del formulario de contacto sirve para analizar campos, mensajes de validación y comportamiento visible para la persona usuaria.",
+    aprendizajesClave: [
+      "Reconocer la documentación como apoyo para comprender y mantener un sistema.",
+      "Organizar la información técnica de forma clara y coherente con su propósito.",
+      "Revisar la documentación para mejorar su precisión, legibilidad y utilidad."
+    ],
+    instrumentos: [
+      { nombre: "Descripción de un formulario", descripcion: "Identificar sus campos, propósito, mensajes de validación y recorrido de uso." },
+      { nombre: "Guía breve de uso y validación", descripcion: "Documentar los datos que solicita el formulario y cómo informa de errores de entrada." }
+    ],
+    programas: ["Navegador web", "Entorno local de desarrollo"],
+    herramientas: ["Informática", "Documentación de sistemas informáticos", "Formularios web", "Validación de entradas", "Mensajes de error"],
+    recursos: [
+      { titulo: "GitHub Docs: escritura en GitHub", url: "https://docs.github.com/es/get-started/writing-on-github", tipo: "documentacion", descripcion: "Referencia para redactar y dar formato a contenido en GitHub." }
+    ],
+    evidencias: [
+      { titulo: "Formulario web y validación", descripcion: "Captura de un formulario de contacto con aviso de validación; los datos personales del campo de contacto están ocultos.", tipo: "imagen", ruta: "img/Informatica-public.png", alt: "Formulario web de contacto que muestra campos de entrada y un mensaje de validación; el dato de contacto está oculto." }
+    ],
     quiz: [
-      {pregunta:"¿Qué significa CRUD?", opciones:["Crear, leer, actualizar y eliminar","Copiar, reiniciar, usar y descargar","Conectar, renderizar, unir y depurar"], respuesta:0},
-      {pregunta:"¿Qué papel cumple MySQL en una aplicación PHP?", opciones:["Almacenar y consultar datos","Estilizar los botones","Servir como navegador"], respuesta:0},
-      {pregunta:"¿Para qué se usan las sesiones en una aplicación?", opciones:["Mantener estado asociado a la interacción de un usuario","Crear una hoja de estilos","Exportar una gráfica"], respuesta:0}
+      { pregunta: "¿Qué aporta la documentación de un sistema?", opciones: ["Una referencia para comprender su estructura y uso", "Una sustitución de todas las pruebas", "Una garantía de que el sistema nunca cambia"], respuesta: 0 },
+      { pregunta: "¿Qué cualidad mejora la utilidad de un documento técnico?", opciones: ["Claridad y organización", "Ambigüedad", "Omisión del propósito"], respuesta: 0 },
+      { pregunta: "¿Qué conviene hacer antes de compartir documentación?", opciones: ["Revisar su precisión y legibilidad", "Eliminar el contexto", "Evitar comprobar los enlaces"], respuesta: 0 }
     ]
   },
   {
-    id: "soporte-ingles",
-    titulo: "Soporte técnico e inglés técnico",
-    area: "Soporte e inglés",
-    color: "amber",
-    resumen: "Identificamos componentes de computadoras y laptops, practicamos mantenimiento y redactamos reportes y diálogos de atención en inglés.",
-    aprendizajes: ["Reconocer CPU, memoria RAM y almacenamiento.", "Describir componentes y sus funciones en inglés técnico.", "Simular una conversación entre cliente y personal técnico."],
-    responsable: "Nestor Eduardo Deodanes Martinez",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Herramientas de diagnóstico del sistema"],
-    herramientas: ["Mantenimiento preventivo", "Identificación de hardware", "Vocabulario técnico en inglés", "Reportes de diagnóstico"],
-    instrumentos: ["Práctica de limpieza y despiece", "Reporte de componentes de una laptop", "Guion de atención técnica en inglés"],
-    evidencias: ["Inventario de componentes de un equipo", "Reporte técnico en inglés", "Simulación de atención a un cliente"],
-    evidenceImages: [{src:"img/ComponentesPC.jpeg", alt:"Integrante del equipo en el aula durante una actividad práctica de soporte técnico.", caption:"Actividad de soporte técnico e inglés."}],
-    recursos: [{nombre:"Glosario de hardware (Cisco)", url:"https://www.cisco.com/c/en/us/products/computing/what-is-computer-hardware.html"}],
+    id: "btvds-3-5",
+    codigo: "BTVDS 3.5",
+    nombre: "Desarrollo de componentes para dispositivos móviles",
+    categoria: "Aplicaciones móviles",
+    docente: ["Francisco Arcides Canales Sorto"],
+    resumen: "Desarrollo de componentes para dispositivos móviles, vinculado a .NET MAUI y operaciones CRUD. La captura muestra un juego móvil de parejas con tablero interactivo, temporizador y opción para reiniciar.",
+    aprendizajesClave: [
+      "Identificar la función de componentes dentro de una aplicación móvil.",
+      "Relacionar .NET MAUI con el desarrollo de interfaces para aplicaciones móviles.",
+      "Comprender el flujo de operaciones CRUD para gestionar información desde una aplicación."
+    ],
+    instrumentos: [
+      { nombre: "Práctica de componentes e interacción móvil", descripcion: "Revisar el comportamiento de controles, tablero, temporizador y reinicio del juego." },
+      { nombre: "Ejercicio de operaciones CRUD", descripcion: "Repasar el flujo de crear, consultar, actualizar y eliminar registros en una aplicación móvil." }
+    ],
+    programas: [".NET MAUI", "Visual Studio"],
+    herramientas: [".NET MAUI", "C#", "Interfaces móviles", "Eventos de usuario", "Operaciones CRUD"],
+    recursos: [
+      { titulo: "Documentación de .NET MAUI", url: "https://learn.microsoft.com/es-es/dotnet/maui/", tipo: "documentacion", descripcion: "Documentación oficial de Microsoft para .NET MAUI." }
+    ],
+    evidencias: [
+      { titulo: "Juego móvil de parejas", descripcion: "Captura de un juego con tablero, selección de cartas, temporizador y opción para reiniciar la partida.", tipo: "imagen", ruta: "img/Movil.png", alt: "Juego móvil de memoria con tablero de cartas, temporizador y botón para reiniciar." }
+    ],
     quiz: [
-      {pregunta:"¿Qué función cumple la memoria RAM?", opciones:["Mantiene temporalmente datos de trabajo en uso","Almacena permanentemente todos los archivos","Enfría el procesador"], respuesta:0},
-      {pregunta:"¿Qué información debe incluir un reporte técnico?", opciones:["Síntoma, diagnóstico y acciones realizadas","Solo el nombre del cliente","Únicamente una opinión"], respuesta:0},
-      {pregunta:"¿Qué se debe hacer antes de abrir un equipo para mantenimiento?", opciones:["Seguir medidas de seguridad y desconectar la alimentación","Aumentar el volumen","Abrir todos los programas"], respuesta:0}
+      { pregunta: "¿Qué describe mejor a un componente de una aplicación móvil?", opciones: ["Una parte con una responsabilidad dentro de la aplicación", "Un archivo que no participa en la aplicación", "Un dispositivo de red"], respuesta: 0 },
+      { pregunta: "¿Qué representa CRUD?", opciones: ["Crear, leer, actualizar y eliminar", "Copiar, reiniciar, usar y descargar", "Configurar, reparar, unir y depurar"], respuesta: 0 },
+      { pregunta: "¿Cuál es la fuente más apropiada para aprender sobre .NET MAUI?", opciones: ["La documentación oficial de .NET MAUI", "Una referencia de CSS sin relación", "Un catálogo de imágenes"], respuesta: 0 }
     ]
   },
   {
-    id: "innovacion-iot",
-    titulo: "Innovación e Internet de las cosas",
-    area: "Innovación",
-    color: "magenta",
-    resumen: "Creamos prototipos para la Feria de Logros: un auto controlado con gestos mediante un guante y una experiencia de señas/dibujo usando cámara.",
-    aprendizajes: ["Relacionar sensores y actuadores con una solución a un problema.", "Diseñar una interacción basada en gestos.", "Probar y presentar un prototipo tecnológico."],
-    responsable: "Nestor Eduardo Deodanes Martinez",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Arduino IDE", "Herramientas de cámara y visión por computadora"],
-    herramientas: ["Arduino", "Sensores de gestos", "Cámara web", "Visión por computadora"],
-    instrumentos: ["Diseño y pruebas del prototipo", "Revisión de funcionamiento", "Presentación en Feria de Logros"],
-    evidencias: ["Auto controlado por gestos desde un guante", "Prototipo de interacción de señas por cámara", "Reflexión de la Feria de Logros"],
-    evidenceImages: [{src:"img/Arduino.jpeg", alt:"Prototipo de auto con ruedas, placa Arduino, sensores y conexiones eléctricas.", caption:"Prototipo del proyecto de innovación con Arduino."}],
-    recursos: [{nombre:"Documentación oficial de Arduino", url:"https://docs.arduino.cc/"}],
+    id: "btvds-3-6",
+    codigo: "BTVDS 3.6",
+    nombre: "Conversación en inglés sobre mantenimiento de sistemas informáticos",
+    categoria: "Inglés técnico",
+    docente: ["Javier Mineros"],
+    resumen: "Conversación en inglés sobre mantenimiento de sistemas informáticos. El mapa bilingüe de anatomía del sistema sirve para repasar nombres de componentes y datos de identificación del equipo, explicar información técnica y organizar un reporte de soporte.",
+    aprendizajesClave: [
+      "Utilizar vocabulario informático pertinente al describir una situación de mantenimiento.",
+      "Comunicar en inglés información básica relacionada con una solicitud de soporte técnico.",
+      "Organizar un reporte técnico en inglés con información clara sobre el caso atendido."
+    ],
+    instrumentos: [
+      { nombre: "Descripción oral de un sistema", descripcion: "Practicar cómo presentar en inglés los componentes y datos técnicos registrados en el mapa del sistema." },
+      { nombre: "Reporte breve de soporte", descripcion: "Organizar vocabulario y frases para comunicar un problema, una revisión y sus resultados." }
+    ],
+    programas: ["Windows", "Configuración del sistema", "msinfo32"],
+    herramientas: ["Soporte técnico", "Vocabulario informático en inglés", "Anatomía del sistema", "Reportes técnicos en inglés"],
+    recursos: [
+      { titulo: "Microsoft Learn: Windows client troubleshooting", url: "https://learn.microsoft.com/en-us/troubleshoot/windows-client/", tipo: "documentacion", descripcion: "Lectura técnica en inglés sobre soporte y solución de problemas de Windows." }
+    ],
+    evidencias: [
+      { titulo: "System Anatomy Map", descripcion: "Mapa bilingüe con características del sistema, como apoyo para practicar vocabulario técnico y conversación de soporte; se ocultaron los campos de identificación personal del equipo.", tipo: "imagen", ruta: "img/Ingles-public.png", alt: "Ficha bilingüe System Anatomy Map con características de un sistema informático y campos de identificación personal ocultos." }
+    ],
     quiz: [
-      {pregunta:"¿Qué es un sensor en un prototipo IoT?", opciones:["Un componente que detecta una señal o cambio","Un tipo de documento","Una hoja de cálculo"], respuesta:0},
-      {pregunta:"¿Qué elemento ejecuta una acción física en un circuito?", opciones:["Un actuador","Una consulta SQL","Un filtro de reporte"], respuesta:0},
-      {pregunta:"¿Por qué se prueban los prototipos?", opciones:["Para observar su funcionamiento y detectar mejoras","Para evitar recoger evidencia","Para sustituir la documentación"], respuesta:0}
+      { pregunta: "¿Qué información es útil al describir un problema de soporte?", opciones: ["Síntoma y contexto del sistema", "Solo una opinión sin detalles", "Una lista de términos sin relación"], respuesta: 0 },
+      { pregunta: "¿Qué debe favorecer un reporte técnico?", opciones: ["Claridad y organización de la información", "La omisión del problema", "La mezcla de datos no relacionados"], respuesta: 0 },
+      { pregunta: "¿Qué ayuda a comunicar un caso de mantenimiento en inglés?", opciones: ["Vocabulario informático pertinente", "Traducir términos sin revisar su sentido", "Evitar explicar el síntoma"], respuesta: 0 }
     ]
   },
   {
-    id: "ia-copilot",
-    titulo: "IA generativa y desarrollo asistido",
-    area: "Innovación",
-    color: "green",
-    resumen: "Exploramos Google Studio IA y GitHub Copilot para crear ideas de aplicaciones y juegos, usando la IA como apoyo para aprender y construir.",
-    aprendizajes: ["Convertir una idea en requisitos y una experiencia interactiva.", "Usar asistentes de IA para explorar alternativas y revisar código.", "Explicar y validar el resultado en lugar de aceptar sugerencias a ciegas."],
-    responsable: "Daniela Yamileth Rodriguez Zepeda",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Google Studio IA", "Visual Studio", "GitHub Copilot"],
-    herramientas: ["Prompts", "Prototipado", "JavaScript", "Depuración asistida"],
-    instrumentos: ["Diseño de aplicaciones de hábitos y tareas", "Pruebas de juegos interactivos", "Registro de prompts y reflexión"],
-    evidencias: ["Prototipos de rachas y gestión de tareas", "Juegos de lógica: espejo, milpa y diferencias", "Explicación del código generado o sugerido"],
-    evidenceImages: [{src:"img/GoogleSudio.jpeg", alt:"Prototipo de aplicación de temporizador Pomodoro y hábitos generado en Google Studio IA.", caption:"Prototipo de aplicación creado con apoyo de Google Studio IA."}],
-    recursos: [{nombre:"Documentación de GitHub Copilot", url:"https://docs.github.com/es/copilot"}],
+    id: "btvds-3-7",
+    codigo: "BTVDS 3.7",
+    nombre: "Puesta en marcha de la microempresa en asociatividad cooperativa",
+    categoria: "Microempresa",
+    docente: ["Francisco Arcides Canales Sorto"],
+    resumen: "Módulo enfocado en la puesta en marcha de una microempresa en asociatividad cooperativa. Los procesos y materiales específicos de la guía del Día 2 están pendientes de confirmar.",
+    aprendizajesClave: [
+      "Reconocer la importancia de organizar responsabilidades para poner en marcha una iniciativa cooperativa.",
+      "Relacionar la planificación y la colaboración con la operación de una microempresa.",
+      "Identificar información que debe confirmarse antes de documentar procesos del emprendimiento."
+    ],
+    instrumentos: [
+      { nombre: "Organización de la iniciativa productiva", descripcion: "Repasar la distribución de responsabilidades y la planificación de productos, clientes y actividades." },
+      { nombre: "Revisión de la tienda virtual", descripcion: "Explorar cómo se presentan los productos y la información comercial de una tienda de práctica." }
+    ],
+    programas: ["PrestaShop", "XAMPP", "Microsoft Power BI"],
+    herramientas: ["Organización de microempresa", "Asociatividad cooperativa", "Gestión de productos", "Categorías y promociones", "Análisis de datos"],
+    recursos: [
+      { titulo: "CONAMYPE El Salvador", url: "https://www.conamype.gob.sv/", tipo: "institucional", descripcion: "Portal institucional de apoyo a las micro y pequeñas empresas de El Salvador." }
+    ],
+    evidencias: [
+      { titulo: "Tienda virtual de práctica", descripcion: "Captura de una tienda virtual de café ejecutada en un entorno local con XAMPP.", tipo: "imagen", ruta: "img/Xampp.jpeg", alt: "Tienda virtual de café abierta en el navegador junto al panel de control de XAMPP." },
+      { titulo: "Reporte de análisis en Power BI", descripcion: "Reporte visual con indicadores y filtros para explorar datos comerciales.", tipo: "imagen", ruta: "img/PowerBi.jpeg", alt: "Reporte de Power BI con indicadores, visualizaciones de ventas y filtros de pedidos." }
+    ],
     quiz: [
-      {pregunta:"¿Cuál es una buena práctica al recibir una sugerencia de IA?", opciones:["Revisarla, probarla y entenderla","Publicarla sin leer","Asumir que siempre es correcta"], respuesta:0},
-      {pregunta:"¿Qué hace que un prompt sea útil para programar?", opciones:["Explica el objetivo y el contexto con claridad","No describe el problema","Pide resultados contradictorios"], respuesta:0},
-      {pregunta:"¿Qué se debe poder hacer con el código asistido?", opciones:["Explicarlo y verificar su comportamiento","Atribuirlo a una herramienta sin probarlo","Evitar cualquier prueba"], respuesta:0}
+      { pregunta: "¿Qué facilita la asociatividad cooperativa?", opciones: ["La organización del trabajo y las responsabilidades compartidas", "La ausencia de acuerdos", "La eliminación de objetivos comunes"], respuesta: 0 },
+      { pregunta: "¿Qué debe considerarse al poner en marcha una microempresa?", opciones: ["La organización de sus actividades y responsabilidades", "Solo el diseño de un logotipo", "Evitar revisar sus procesos"], respuesta: 0 },
+      { pregunta: "¿Qué conviene hacer cuando falta información oficial del módulo?", opciones: ["Confirmarla con la guía o el equipo docente", "Presentar una suposición como un hecho", "Omitir la necesidad de verificarla"], respuesta: 0 }
     ]
   },
   {
-    id: "fundamentos-node-evaluacion",
-    titulo: "Fundamentos web, Node.js y evaluación",
-    area: "Desarrollo",
-    color: "amber",
-    resumen: "El recorrido incluyó HTML, CSS y JavaScript, primeros ejercicios de Node.js y una evaluación diagnóstica interactiva en Kahoot.",
-    aprendizajes: ["Comprender la estructura semántica de una página y estilos responsive.", "Usar JavaScript para responder a eventos e interactuar con el DOM.", "Reconocer Node.js como entorno para ejecutar JavaScript fuera del navegador."],
-    responsable: "Marcela Abigail Mata Escobar",
-    docentes: ["Javier Mineros", "Arcides Canales"],
-    programas: ["Visual Studio Code", "Node.js", "Kahoot"],
-    herramientas: ["HTML5", "CSS", "JavaScript", "DOM", "Eventos"],
-    instrumentos: ["Ejercicios de maquetación y lógica", "Prácticas iniciales con Node.js", "Prueba diagnóstica Kahoot"],
-    evidencias: ["Páginas y ejercicios web", "Ejemplos de JavaScript y Node.js", "Resultados de repaso diagnóstico"],
-    evidenceImages: [{src:"img/Kahoot.jpeg", alt:"Pantalla de resultados de una actividad diagnóstica en Kahoot con la clasificación de participantes.", caption:"Resultados de la prueba diagnóstica grupal en Kahoot."}],
-    recursos: [{nombre:"MDN: HTML", url:"https://developer.mozilla.org/es/docs/Web/HTML"},{nombre:"Documentación de Node.js", url:"https://nodejs.org/docs/latest/api/"}],
+    id: "btvds-3-8",
+    codigo: "BTVDS 3.8",
+    nombre: "Proyecto innovador de desarrollo de software",
+    categoria: "Proyectos innovadores",
+    docente: ["Javier Mineros"],
+    resumen: "Módulo para el proyecto innovador de desarrollo de software. Las tecnologías relacionadas incluyen IoT, Arduino, sensores, visión por computadora, reconocimiento de lenguaje de señas, Google Studio IA y GitHub Copilot.",
+    aprendizajesClave: [
+      "Relacionar una necesidad con la propuesta de un prototipo de software innovador.",
+      "Reconocer el papel de sensores, Arduino y visión por computadora en soluciones interactivas.",
+      "Utilizar herramientas de desarrollo asistido por IA con revisión y validación del resultado."
+    ],
+    instrumentos: [
+      { nombre: "Prototipos de innovación", descripcion: "El recorrido técnico incluye proyectos de IoT, guante de gestos y visión por computadora; instrumentos formales de evaluación por confirmar." }
+    ],
+    programas: ["Arduino", "Google Studio IA", "GitHub Copilot"],
+    herramientas: ["IoT", "Sensores", "Guante de gestos", "Visión por computadora", "Reconocimiento de lenguaje de señas"],
+    recursos: [
+      { titulo: "Documentación oficial de Arduino", url: "https://docs.arduino.cc/", tipo: "documentacion", descripcion: "Documentación oficial de hardware y software Arduino." },
+      { titulo: "Documentación de GitHub Copilot", url: "https://docs.github.com/es/copilot", tipo: "documentacion", descripcion: "Guías oficiales para utilizar GitHub Copilot." },
+      { titulo: "Google AI Studio: inicio rápido", url: "https://ai.google.dev/gemini-api/docs/ai-studio-quickstart", tipo: "documentacion", descripcion: "Guía oficial para comenzar a utilizar Google AI Studio." }
+    ],
+    evidencias: [
+      { titulo: "Presentación del proyecto innovador", descripcion: "Fotografía de la presentación de prototipos durante una actividad escolar; se observan proyectos de hardware y software.", tipo: "imagen", ruta: "img/Innovador.jpeg", alt: "Equipo presentando prototipos de hardware y software durante una actividad escolar." },
+      { titulo: "Prototipo con Arduino", descripcion: "Captura del prototipo de auto con placa Arduino, sensores y conexiones.", tipo: "imagen", ruta: "img/Arduino.jpeg", alt: "Prototipo de auto con ruedas, placa Arduino, sensores y conexiones eléctricas." },
+      { titulo: "Prototipo creado con Google Studio IA", descripcion: "Captura de una aplicación de temporizador y hábitos creada con apoyo de Google Studio IA.", tipo: "imagen", ruta: "img/GoogleSudio.jpeg", alt: "Prototipo de aplicación de temporizador Pomodoro y hábitos generado en Google Studio IA." }
+    ],
     quiz: [
-      {pregunta:"¿Para qué se usa HTML?", opciones:["Definir la estructura del contenido web","Consultar bases de datos por sí solo","Administrar memoria RAM"], respuesta:0},
-      {pregunta:"¿Qué permite hacer JavaScript en el navegador?", opciones:["Responder a eventos y actualizar la interfaz","Reemplazar el sistema operativo","Crear una conexión física"], respuesta:0},
-      {pregunta:"¿Qué es Node.js?", opciones:["Un entorno para ejecutar JavaScript fuera del navegador","Un lenguaje de marcado","Una base de datos relacional"], respuesta:0}
+      { pregunta: "¿Qué función puede cumplir un sensor en un prototipo IoT?", opciones: ["Detectar una condición o señal del entorno", "Mostrar documentación sin hardware", "Reemplazar todas las pruebas"], respuesta: 0 },
+      { pregunta: "¿Qué es importante al utilizar una sugerencia de una herramienta de IA?", opciones: ["Revisarla y validar el resultado", "Asumir que siempre es correcta", "Publicarla sin comprenderla"], respuesta: 0 },
+      { pregunta: "¿Qué describe la visión por computadora?", opciones: ["El procesamiento de información visual mediante sistemas computacionales", "La administración de archivos de audio", "La impresión de documentos"], respuesta: 0 }
     ]
   }
 ];

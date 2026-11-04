@@ -1,6 +1,6 @@
-# HUB 3DS·A — Portal educativo
+# HUB 3DS·A — Día 2 (Miércoles) · v0.5
 
-Portal educativo estático del 3.º de Desarrollo de Software «A» del Instituto Nacional Cantón Lourdes (INDEL). Reúne módulos, herramientas, evidencias y proyectos del recorrido técnico anual en una experiencia editorial adaptable.
+Guía estática e interactiva de repaso para tercer año de Desarrollo de Software del INDEL. La versión v0.5 corresponde al Día 2 (miércoles) e incluye los módulos oficiales BTVDS 3.0 a BTVDS 3.8.
 
 ## Ejecutar localmente
 
@@ -26,23 +26,40 @@ hub-3ds-a/
 
 - `index.html`: portada y estructura semántica del portal.
 - `css/styles.css`: identidad visual Velvet Romance, tema claro/oscuro y estilos responsive.
-- `js/app.js`: render de módulos y tecnologías, filtros, carrusel, tema, progreso, quizzes y evidencias.
-- `js/modulos.js`: información académica, herramientas, recursos, instrumentos, evidencias y quizzes de cada módulo.
+- `js/app.js`: render de módulos y tecnologías, búsqueda, filtros, carrusel, tema, progreso, autoevaluaciones y galería de evidencias.
+- `js/modulos.js`: datos de los nueve módulos del Día 2, recursos, aprendizajes, instrumentos y evidencias.
 - `js/tecnologias.js`: catálogo de tecnologías y conocimientos organizados en once categorías.
 - `img/`: capturas, evidencias visuales y recursos gráficos del equipo.
 
 ## Funcionalidades
 
 - Catálogo de tecnologías con tarjetas generadas desde datos, filtros por categoría, controles de navegación, indicadores y desplazamiento táctil o con ratón.
-- Archivo de módulos con búsqueda y filtros por área e integrante.
-- Fichas con resumen, aprendizajes, programas, herramientas, instrumentos, evidencias, recursos y cuestionarios.
-- Botón «Evidencias» en cada módulo y galería con las capturas correspondientes, guardadas en `img/`.
-- Progreso de revisión y resultados de cuestionarios guardados en el almacenamiento local del navegador.
+- Archivo de exactamente nueve módulos con búsqueda insensible a mayúsculas y tildes, filtro temático y filtro por docente.
+- Fichas con código, nombre oficial, docentes, tres aprendizajes clave, programas, herramientas, instrumentos y recursos.
+- Galería modal independiente por módulo; las imágenes existentes pueden ampliarse y los enlaces externos se abren de forma segura.
+- Progreso de revisión guardado en `localStorage` con la clave `hub3dsa_dia2_v05_progress`; no modifica el progreso de otras versiones.
+- Autoevaluaciones complementarias para practicar; no representan exámenes oficiales ni resultados académicos.
 - Selector de tema claro/oscuro, navegación adaptable y animaciones que respetan la preferencia de movimiento reducido.
 
 ## Contenido académico
 
-El portal recorre bases de datos y el proyecto VelvetHeel; Power BI y análisis de información; aplicaciones de escritorio con C# y .NET; Python, SQLite, PHP y MySQL; fundamentos web y Node.js; soporte técnico e inglés; proyectos de innovación IoT; inteligencia artificial y desarrollo asistido; comercio electrónico; metodologías ágiles y modelado UML.
+Los nombres de los módulos, códigos y docentes se basan en la información confirmada para el Día 2. Cuando un docente, instrumento, recurso o evidencia no está confirmado, la interfaz lo indica en lugar de asignar información por suposición.
+
+Las evidencias se organizan por las etiquetas e imágenes compartidas por el equipo:
+
+- **BTVDS 3.0:** resultados de Kahoot (`Kahoot.jpeg`).
+- **BTVDS 3.1:** aplicación de gestión para mascotas (`Maui.png`), práctica Windows Forms y ejercicios de Python.
+- **BTVDS 3.2:** documento sobre una plataforma web (`Sistema.jpeg`) y actividad práctica de soporte (`ComponentesPC.jpeg`).
+- **BTVDS 3.3:** proyecto de base de datos VelvetHeel (`VelvetHeel.png`).
+- **BTVDS 3.4:** formulario web y validación (`Informatica-public.png`).
+- **BTVDS 3.5:** juego móvil de parejas (`Movil.png`).
+- **BTVDS 3.6:** ficha bilingüe System Anatomy Map (`Ingles-public.png`).
+- **BTVDS 3.7:** tienda virtual con XAMPP y reporte de Power BI (`Xampp.jpeg`, `PowerBi.jpeg`).
+- **BTVDS 3.8:** presentación de innovación, prototipo Arduino y aplicación con Google Studio IA.
+
+La asignación docente sigue la distribución indicada por el equipo: Francisco Arcides Canales Sorto imparte BTVDS 3.1, 3.2, 3.5 y 3.7; Javier Mineros, BTVDS 3.0, 3.3, 3.4, 3.6 y 3.8.
+
+Las evidencias de BTVDS 3.4 y 3.6 utilizan copias que ocultan datos personales. Los originales `Informatica.png` e `Ingles.png` se conservan localmente, están excluidos por `img/.gitignore` y no deben añadirse al repositorio. La fotografía de `Innovador.jpeg` muestra integrantes del grupo; confirmar que cuentan con autorización para publicarla.
 
 Las tecnologías, herramientas y conceptos solicitados por el equipo están centralizados en `js/tecnologias.js`. Cada entrada incluye nombre, categoría, marca tipográfica e introducción breve.
 
@@ -55,6 +72,6 @@ Las tecnologías, herramientas y conceptos solicitados por el equipo están cent
 
 ## Publicación
 
-El portal es estático y puede desplegarse en GitHub Pages. Como esta carpeta está dentro de la raíz del repositorio, configura GitHub Pages para publicar `hub-3ds-a/` mediante un flujo de GitHub Actions o copia el contenido de esta carpeta a la raíz o a `/docs`, según la fuente de publicación elegida. Después de publicar, agrega aquí la URL pública:
+El portal es estático y se publica en GitHub Pages. El `index.html` de la raíz del repositorio dirige a esta carpeta.
 
-**GitHub Pages:** pendiente de configurar.
+**GitHub Pages:** <https://sam-3196324.github.io/Actividadgrupal_JavierMineros/>
