@@ -287,19 +287,16 @@
   }
 
   function makeEvidenceSection(module) {
-    const section = make("section", "detail-block evidence-block");
-    section.append(make("h4", "", "Evidencia"));
-    const description = make("p", "evidence-intro", module.evidencias.length
-      ? "Consulta los archivos y enlaces asociados únicamente con este módulo."
-      : "Aún no se han agregado evidencias para este módulo.");
-    const button = make("button", "evidence-trigger", "Evidencia del módulo");
+    const section = make("section", "evidence-block");
+    const button = make("button", "evidence-trigger", "Evidencias");
     button.type = "button";
+    button.setAttribute("aria-label", "Ver evidencias de " + module.codigo);
     button.addEventListener("click", () => openEvidenceGallery(module, button));
-    section.append(description, button);
+    section.append(button);
     return section;
   }
 
-  function makeEvidenceCard(evidence) {
+  function makeEvidenceCard(evidence, module) {
     const article = make("article", "evidence-item");
     article.append(make("span", "evidence-type", evidence.tipo || "Evidencia"));
     article.append(make("h3", "evidence-item-title", evidence.titulo));
@@ -317,13 +314,16 @@
       const image = document.createElement("img");
       image.src = path;
       image.alt = evidence.alt || evidence.titulo;
-      image.loading = "lazy";
       image.addEventListener("error", () => {
         if (!evidenceGallery.contains(article)) return;
         console.error("No se pudo cargar la evidencia: " + path);
         article.remove();
         if (!evidenceGallery.querySelector(".evidence-item")) {
-          evidenceGallery.replaceChildren(make("p", "dialog-empty", "No se pudieron cargar las evidencias disponibles."));
+          const message = make("p", "dialog-empty", "No se pudieron cargar las evidencias. Comprueba la conexión e inténtalo de nuevo.");
+          const retry = make("button", "evidence-trigger evidence-retry", "Reintentar");
+          retry.type = "button";
+          retry.addEventListener("click", () => renderEvidenceGallery(module));
+          evidenceGallery.replaceChildren(message, retry);
         }
       }, { once: true });
       previewButton.append(image);
@@ -345,21 +345,25 @@
     return article;
   }
 
-  function openEvidenceGallery(module, trigger) {
-    evidenceReturnFocus = trigger;
+  function renderEvidenceGallery(module) {
     evidenceModuleName.textContent = module.codigo + " · " + module.nombre;
     evidenceGallery.replaceChildren();
     if (!module.evidencias.length) {
       evidenceGallery.append(make("p", "dialog-empty", "Aún no se han agregado evidencias para este módulo."));
     } else {
       module.evidencias.forEach((evidence) => {
-        const card = makeEvidenceCard(evidence);
+        const card = makeEvidenceCard(evidence, module);
         if (card) evidenceGallery.append(card);
       });
       if (!evidenceGallery.childElementCount) {
         evidenceGallery.append(make("p", "dialog-empty", "Aún no se han agregado evidencias para este módulo."));
       }
     }
+  }
+
+  function openEvidenceGallery(module, trigger) {
+    evidenceReturnFocus = trigger;
+    renderEvidenceGallery(module);
     evidenceDialog.showModal();
     document.getElementById("evidence-dialog-close").focus();
   }
@@ -493,6 +497,7 @@
     footer.append(owner, reviewedLabel);
     article.append(footer);
     article.classList.toggle("is-reviewed", checkbox.checked);
+    article.append(makeEvidenceSection(module));
 
     const details = make("details", "module-details");
     const summary = make("summary", "", "Ver ficha completa");
@@ -520,7 +525,7 @@
       resourceLinks.append(make("p", "pending-note", "Recurso específico pendiente de confirmar con la guía del módulo."));
     }
     resources.append(resourceLinks);
-    body.append(makeEvidenceSection(module), resources);
+    body.append(resources);
     if (Array.isArray(module.quiz) && module.quiz.length) body.append(makeQuiz(module));
     details.append(summary, body);
     article.append(details);

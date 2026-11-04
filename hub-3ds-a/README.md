@@ -45,7 +45,7 @@ hub-3ds-a/
 
 Los nombres de los módulos, códigos y docentes se basan en la información confirmada para el Día 2. Cuando un docente, instrumento, recurso o evidencia no está confirmado, la interfaz lo indica en lugar de asignar información por suposición.
 
-Las evidencias se organizan por las etiquetas e imágenes compartidas por el equipo:
+Las evidencias se organizan por las etiquetas e imágenes compartidas por el equipo. Cada tarjeta incluye un botón **Evidencias** visible para abrir su galería correspondiente:
 
 - **BTVDS 3.0:** resultados de Kahoot (`Kahoot.jpeg`).
 - **BTVDS 3.1:** aplicación de gestión para mascotas (`Maui.png`), práctica Windows Forms y ejercicios de Python.
@@ -75,3 +75,9 @@ Las tecnologías, herramientas y conceptos solicitados por el equipo están cent
 El portal es estático y se publica en GitHub Pages. El `index.html` de la raíz del repositorio dirige a esta carpeta.
 
 **GitHub Pages:** <https://sam-3196324.github.io/Actividadgrupal_JavierMineros/>
+
+### Solución de problemas de evidencias
+
+- Si una galería muestra un error de carga, comprueba que Live Server esté activo o vuelve a abrir la página; ahora puedes usar **Reintentar** en la galería.
+- Verifica que cada archivo exista dentro de `img/` y que el nombre y las mayúsculas coincidan exactamente con `js/modulos.js`.
+- GitHub Pages solo sirve archivos incluidos en el repositorio. Después de agregar evidencias o cambiar código, confirma que los cambios estén publicados y recarga la página sin caché.
