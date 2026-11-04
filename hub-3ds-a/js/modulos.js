@@ -12,6 +12,7 @@ window.MODULOS = [
     herramientas: ["SQL", "Tablas relacionales", "Procedimientos almacenados", "Backups"],
     instrumentos: ["Prácticas guiadas de bases de datos", "Ejercicios de consultas y relaciones", "Revisión del proyecto VelvetHeel"],
     evidencias: ["Base de datos de la empresa simulada VelvetHeel", "Consultas, procedimientos y funciones", "Respaldo automatizado programado"],
+    evidenceImages: [{src:"img/VelvetHeel.png", alt:"Código SQL de creación de la base de datos VelvetHeel y de sus tablas de categorías.", caption:"Base de datos SQL Server del proyecto VelvetHeel."}],
     recursos: [{nombre:"Documentación de SQL Server", url:"https://learn.microsoft.com/es-es/sql/sql-server/?view=sql-server-ver16"}],
     quiz: [
       {pregunta:"¿Qué permite expresar un modelo relacional?", opciones:["Relaciones entre tablas mediante claves","Estilos de una página web","Eventos de una interfaz"], respuesta:0},
@@ -32,6 +33,7 @@ window.MODULOS = [
     herramientas: ["Filtros", "Visualizaciones", "Modelado de datos", "Web scraping"],
     instrumentos: ["Prácticas de importación de datos", "Ejercicios de filtros y gráficos", "Análisis de información extraída de Wikipedia"],
     evidencias: ["Reporte interactivo con filtros", "Gráficos de datos seleccionados", "Conjunto de datos explorado desde Wikipedia"],
+    evidenceImages: [{src:"img/PowerBi.jpeg", alt:"Reporte de Power BI con indicadores, visualizaciones de ventas y filtros de pedidos.", caption:"Reporte interactivo construido en Power BI."}],
     recursos: [{nombre:"Aprender Power BI", url:"https://learn.microsoft.com/es-es/training/powerplatform/power-bi/"}],
     quiz: [
       {pregunta:"¿Qué ayuda a hacer un filtro en un reporte?", opciones:["Restringir los datos visibles según un criterio","Borrar la fuente original","Cambiar la contraseña de la base"], respuesta:0},
@@ -52,6 +54,7 @@ window.MODULOS = [
     herramientas: ["C#", "Windows Forms", "WPF", "Avalonia UI"],
     instrumentos: ["Diseño de interfaz en cuaderno", "Ejercicio práctico de control de notas", "Comparación de frameworks de escritorio"],
     evidencias: ["Prototipo del control de notas", "Aplicación de escritorio con interacción", "Prácticas de exploración de WPF y Avalonia"],
+    evidenceImages: [{src:"img/WindowsForm.jpeg", alt:"Aplicación Windows Forms para calcular notas de un estudiante, con campos de actividades, examen e integradora.", caption:"Control de notas desarrollado con Windows Forms."}],
     recursos: [{nombre:"Documentación de .NET", url:"https://learn.microsoft.com/es-es/dotnet/"}],
     quiz: [
       {pregunta:"¿Qué conviene realizar antes de implementar una interfaz?", opciones:["Planificar su estructura y flujo","Borrar los requisitos","Publicar sin probar"], respuesta:0},
@@ -72,6 +75,7 @@ window.MODULOS = [
     herramientas: ["Variables y tipos", "Condicionales", "Bucles", "POO", "SQLite"],
     instrumentos: ["Ejercicios de lógica y sumatorias", "Prácticas de condicionales y bucles", "Comparación de lenguajes y herramientas"],
     evidencias: ["Ejercicios de Python", "Prácticas con librerías y POO", "Ejemplo de almacenamiento con SQLite"],
+    evidenceImages: [{src:"img/Python.jpeg", alt:"Código de una práctica inicial de Python con variables de estudiante, operaciones básicas y cadenas f.", caption:"Ejercicios de variables y operaciones en Python."}],
     recursos: [{nombre:"Tutorial oficial de Python", url:"https://docs.python.org/es/3/tutorial/"}],
     quiz: [
       {pregunta:"¿Qué estructura permite repetir instrucciones mientras se cumpla una condición?", opciones:["Bucle","Etiqueta HTML","Clave primaria"], respuesta:0},
@@ -92,6 +96,7 @@ window.MODULOS = [
     herramientas: ["PHP", "MySQL", "PDO", "Formularios", "CRUD", "Sesiones"],
     instrumentos: ["Práctica de entorno local y formularios", "Ejercicio CRUD", "Refactor de estructura de proyecto"],
     evidencias: ["Formulario PHP ejecutado localmente", "Gestor de productos CRUD", "Ejercicio de autenticación y sesiones"],
+    evidenceImages: [{src:"img/Xampp.jpeg", alt:"Tienda virtual de café abierta en el navegador junto al panel de control de XAMPP.", caption:"Tienda virtual de práctica ejecutada en el entorno local XAMPP."}],
     recursos: [{nombre:"Manual de PHP", url:"https://www.php.net/manual/es/"},{nombre:"Documentación MySQL", url:"https://dev.mysql.com/doc/"}],
     quiz: [
       {pregunta:"¿Qué significa CRUD?", opciones:["Crear, leer, actualizar y eliminar","Copiar, reiniciar, usar y descargar","Conectar, renderizar, unir y depurar"], respuesta:0},
@@ -112,6 +117,7 @@ window.MODULOS = [
     herramientas: ["Mantenimiento preventivo", "Identificación de hardware", "Vocabulario técnico en inglés", "Reportes de diagnóstico"],
     instrumentos: ["Práctica de limpieza y despiece", "Reporte de componentes de una laptop", "Guion de atención técnica en inglés"],
     evidencias: ["Inventario de componentes de un equipo", "Reporte técnico en inglés", "Simulación de atención a un cliente"],
+    evidenceImages: [{src:"img/ComponentesPC.jpeg", alt:"Integrante del equipo en el aula durante una actividad práctica de soporte técnico.", caption:"Actividad de soporte técnico e inglés."}],
     recursos: [{nombre:"Glosario de hardware (Cisco)", url:"https://www.cisco.com/c/en/us/products/computing/what-is-computer-hardware.html"}],
     quiz: [
       {pregunta:"¿Qué función cumple la memoria RAM?", opciones:["Mantiene temporalmente datos de trabajo en uso","Almacena permanentemente todos los archivos","Enfría el procesador"], respuesta:0},
@@ -132,6 +138,7 @@ window.MODULOS = [
     herramientas: ["Arduino", "Sensores de gestos", "Cámara web", "Visión por computadora"],
     instrumentos: ["Diseño y pruebas del prototipo", "Revisión de funcionamiento", "Presentación en Feria de Logros"],
     evidencias: ["Auto controlado por gestos desde un guante", "Prototipo de interacción de señas por cámara", "Reflexión de la Feria de Logros"],
+    evidenceImages: [{src:"img/Arduino.jpeg", alt:"Prototipo de auto con ruedas, placa Arduino, sensores y conexiones eléctricas.", caption:"Prototipo del proyecto de innovación con Arduino."}],
     recursos: [{nombre:"Documentación oficial de Arduino", url:"https://docs.arduino.cc/"}],
     quiz: [
       {pregunta:"¿Qué es un sensor en un prototipo IoT?", opciones:["Un componente que detecta una señal o cambio","Un tipo de documento","Una hoja de cálculo"], respuesta:0},
@@ -152,6 +159,7 @@ window.MODULOS = [
     herramientas: ["Prompts", "Prototipado", "JavaScript", "Depuración asistida"],
     instrumentos: ["Diseño de aplicaciones de hábitos y tareas", "Pruebas de juegos interactivos", "Registro de prompts y reflexión"],
     evidencias: ["Prototipos de rachas y gestión de tareas", "Juegos de lógica: espejo, milpa y diferencias", "Explicación del código generado o sugerido"],
+    evidenceImages: [{src:"img/GoogleSudio.jpeg", alt:"Prototipo de aplicación de temporizador Pomodoro y hábitos generado en Google Studio IA.", caption:"Prototipo de aplicación creado con apoyo de Google Studio IA."}],
     recursos: [{nombre:"Documentación de GitHub Copilot", url:"https://docs.github.com/es/copilot"}],
     quiz: [
       {pregunta:"¿Cuál es una buena práctica al recibir una sugerencia de IA?", opciones:["Revisarla, probarla y entenderla","Publicarla sin leer","Asumir que siempre es correcta"], respuesta:0},
@@ -172,6 +180,7 @@ window.MODULOS = [
     herramientas: ["HTML5", "CSS", "JavaScript", "DOM", "Eventos"],
     instrumentos: ["Ejercicios de maquetación y lógica", "Prácticas iniciales con Node.js", "Prueba diagnóstica Kahoot"],
     evidencias: ["Páginas y ejercicios web", "Ejemplos de JavaScript y Node.js", "Resultados de repaso diagnóstico"],
+    evidenceImages: [{src:"img/Kahoot.jpeg", alt:"Pantalla de resultados de una actividad diagnóstica en Kahoot con la clasificación de participantes.", caption:"Resultados de la prueba diagnóstica grupal en Kahoot."}],
     recursos: [{nombre:"MDN: HTML", url:"https://developer.mozilla.org/es/docs/Web/HTML"},{nombre:"Documentación de Node.js", url:"https://nodejs.org/docs/latest/api/"}],
     quiz: [
       {pregunta:"¿Para qué se usa HTML?", opciones:["Definir la estructura del contenido web","Consultar bases de datos por sí solo","Administrar memoria RAM"], respuesta:0},

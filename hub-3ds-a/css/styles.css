@@ -450,7 +450,7 @@ kbd { padding: 1px 6px; border: 1px solid var(--champagne); color: var(--muted);
 .detail-block li::marker { color: var(--rose); }
 .evidence-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 12px; }
 .evidence-figure { overflow: hidden; margin: 0; border: 1px solid var(--champagne); background: var(--surface-soft); }
-.evidence-figure img { display: block; width: 100%; height: auto; }
+.evidence-figure img { display: block; width: 100%; max-height: 480px; height: auto; object-fit: contain; }
 .evidence-figure figcaption { padding: 7px 9px; color: var(--muted); font-size: 10px; }
 .evidence-placeholder {
   display: grid;

@@ -36,7 +36,7 @@ hub-3ds-a/
 - Catálogo de tecnologías con tarjetas generadas desde datos, filtros por categoría, controles de navegación, indicadores y desplazamiento táctil o con ratón.
 - Archivo de módulos con búsqueda y filtros por área e integrante.
 - Fichas con resumen, aprendizajes, programas, herramientas, instrumentos, evidencias, recursos y cuestionarios.
-- Botón «Evidencias» en cada módulo y galería preparada para incorporar capturas en `img/`.
+- Botón «Evidencias» en cada módulo y galería con las capturas correspondientes, guardadas en `img/`.
 - Progreso de revisión y resultados de cuestionarios guardados en el almacenamiento local del navegador.
 - Selector de tema claro/oscuro, navegación adaptable y animaciones que respetan la preferencia de movimiento reducido.
 
