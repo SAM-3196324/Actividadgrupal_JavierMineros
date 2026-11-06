@@ -15,6 +15,12 @@
   const progressFill = document.getElementById("progress-fill");
   const liveRegion = document.getElementById("results-count");
   const technologyList = Array.isArray(window.TECNOLOGIAS) ? window.TECNOLOGIAS : [];
+  const selfEvaluationTeam = [
+    { id: "daniela", name: "Daniela Yamileth Rodriguez Zepeda", role: "Diseñadora UI" },
+    { id: "marcela", name: "Marcela Abigail Mata Escobar", role: "Curadora de contenido" },
+    { id: "nestor", name: "Nestor Eduardo Deodanes Martinez", role: "QA y accesibilidad" },
+    { id: "samuel", name: "Samuel Eliseo Mendoza Gonzalez", role: "Líder Git" }
+  ];
   const tiltBound = new WeakSet();
   const moduleCards = new Map();
   const evidenceDialog = document.getElementById("evidence-dialog");
@@ -23,9 +29,15 @@
   const evidencePreviewDialog = document.getElementById("evidence-preview-dialog");
   const evidencePreviewImage = document.getElementById("evidence-preview-image");
   const evidencePreviewCaption = document.getElementById("evidence-preview-caption");
+  const quizDialog = document.getElementById("quiz-dialog");
+  const quizDialogTitle = document.getElementById("quiz-dialog-title");
+  const quizDialogContent = document.getElementById("quiz-dialog-content");
+  const quizProgress = document.getElementById("quiz-progress");
   let reviewState = loadReviewState();
   let evidenceReturnFocus = null;
   let previewReturnFocus = null;
+  let quizReturnFocus = null;
+  let activeQuiz = null;
 
   if (!modules.length) {
     console.error("No se cargaron módulos desde js/modulos.js.");
@@ -48,8 +60,10 @@
   function writeStorage(key, value) {
     try {
       localStorage.setItem(storagePrefix + key, value);
+      return true;
     } catch (error) {
       console.warn("No se pudo guardar el progreso en este navegador.", error);
+      return false;
     }
   }
 
@@ -407,56 +421,312 @@
     });
   }
 
-  function makeQuiz(module) {
-    const details = make("details", "quiz-details");
-    const summary = make("summary", "", "Autoevaluación complementaria · " + module.quiz.length + " preguntas");
-    const form = make("form", "quiz-form");
-    form.dataset.moduleId = module.id;
+  function getBestQuizScore(id) {
+    const stored = readStorage("quiz-best:" + id, null);
+    if (!stored) return null;
+    try {
+      const score = JSON.parse(stored);
+      if (!score || !Number.isInteger(score.score) || !Number.isInteger(score.total)) return null;
+      return score;
+    } catch (error) {
+      console.warn("No se pudo interpretar el mejor puntaje guardado del quiz.", error);
+      return null;
+    }
+  }
 
-    module.quiz.forEach((item, index) => {
-      const fieldset = make("fieldset", "quiz-question");
-      const legend = make("legend", "", (index + 1) + ". " + item.pregunta);
-      fieldset.append(legend);
-      item.opciones.forEach((option, optionIndex) => {
-        const label = make("label", "quiz-option");
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = module.id + "-q" + index;
-        input.value = String(optionIndex);
-        input.required = true;
-        label.append(input, make("span", "", option));
-        fieldset.append(label);
-      });
-      form.append(fieldset);
+  function saveBestQuizScore(id, score, total) {
+    const best = getBestQuizScore(id);
+    if (best && best.score >= score) return best;
+    const result = {
+      score,
+      total,
+      percent: Math.round((score / total) * 100),
+      date: new Date().toISOString()
+    };
+    return writeStorage("quiz-best:" + id, JSON.stringify(result)) ? result : false;
+  }
+
+  function bestScoreLabel(score) {
+    if (score === false) return "No se pudo guardar el mejor puntaje en este navegador.";
+    if (!score) return "Aún no hay un puntaje guardado.";
+    const date = score.date && Number.isFinite(Date.parse(score.date))
+      ? " · " + new Intl.DateTimeFormat("es", { dateStyle: "medium" }).format(new Date(score.date))
+      : "";
+    return "Mejor resultado: " + score.score + " de " + score.total + " (" + score.percent + "%)" + date;
+  }
+
+  function shuffleQuestions(items) {
+    const shuffled = items.slice();
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+    }
+    return shuffled;
+  }
+
+  function startQuiz(title, questions, storageId, trigger, shuffle) {
+    activeQuiz = {
+      title,
+      questions: shuffle ? shuffleQuestions(questions) : questions.slice(),
+      storageId,
+      index: 0,
+      score: 0,
+      answered: false
+    };
+    quizReturnFocus = trigger;
+    quizDialogTitle.textContent = title;
+    renderQuizQuestion();
+    quizDialog.showModal();
+    document.getElementById("quiz-dialog-close").focus();
+  }
+
+  function renderQuizQuestion() {
+    const question = activeQuiz.questions[activeQuiz.index];
+    activeQuiz.answered = false;
+    quizProgress.textContent = "Pregunta " + (activeQuiz.index + 1) + " de " + activeQuiz.questions.length;
+    quizDialogContent.replaceChildren();
+
+    const form = make("form", "quiz-form");
+    const fieldset = make("fieldset", "quiz-question");
+    const questionLabel = question.module
+      ? question.module + " · " + question.pregunta
+      : question.pregunta;
+    fieldset.append(make("legend", "", (activeQuiz.index + 1) + ". " + questionLabel));
+    question.opciones.forEach((option, optionIndex) => {
+      const label = make("label", "quiz-option");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "quiz-answer";
+      input.value = String(optionIndex);
+      input.required = true;
+      label.dataset.optionIndex = String(optionIndex);
+      label.append(input, make("span", "", option));
+      fieldset.append(label);
     });
+    form.append(fieldset);
 
     const actions = make("div", "quiz-actions");
-    const submit = make("button", "button button-primary button-small", "Revisar respuestas");
+    const submit = make("button", "button button-primary button-small", "Comprobar respuesta");
     submit.type = "submit";
-    const feedback = make("p", "quiz-feedback");
-    feedback.setAttribute("aria-live", "polite");
-    actions.append(submit, feedback);
+    actions.append(submit);
     form.append(actions);
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const answers = new FormData(form);
-      let score = 0;
-      module.quiz.forEach((question, index) => {
-        if (Number(answers.get(module.id + "-q" + index)) === question.respuesta) score += 1;
-      });
-      feedback.textContent = "Resultado: " + score + " de " + module.quiz.length + ". " +
-        (score === module.quiz.length ? "¡Excelente, dominio demostrado!" : "Revisa la ficha e inténtalo de nuevo.");
-      feedback.classList.toggle("is-success", score === module.quiz.length);
-      writeStorage("quiz:" + module.id, String(score));
-    });
+      const selected = form.querySelector('input[name="quiz-answer"]:checked');
+      if (!selected) {
+        form.reportValidity();
+        return;
+      }
 
-    const savedScore = readStorage("quiz:" + module.id, null);
-    if (savedScore !== null) {
-      const feedback = form.querySelector(".quiz-feedback");
-      feedback.textContent = "Último resultado guardado: " + savedScore + " de " + module.quiz.length + ".";
-    }
-    details.append(summary, form);
+      activeQuiz.answered = true;
+      const isCorrect = Number(selected.value) === question.respuesta;
+      if (isCorrect) activeQuiz.score += 1;
+      fieldset.querySelectorAll("input").forEach((input) => {
+        input.disabled = true;
+        const label = input.closest(".quiz-option");
+        if (Number(input.value) === question.respuesta) label.classList.add("is-answer-correct");
+        if (input === selected && !isCorrect) label.classList.add("is-answer-incorrect");
+      });
+
+      const feedback = make("p", "quiz-feedback" + (isCorrect ? " is-success" : ""));
+      feedback.setAttribute("role", "status");
+      feedback.textContent = (isCorrect ? "Respuesta correcta. " : "Respuesta incorrecta. Respuesta correcta: " + question.opciones[question.respuesta] + ". ") +
+        "Explicación: " + question.explicacion;
+      form.append(feedback);
+
+      submit.remove();
+      const next = make("button", "button button-primary button-small",
+        activeQuiz.index === activeQuiz.questions.length - 1 ? "Ver resultado" : "Siguiente pregunta");
+      next.type = "button";
+      next.addEventListener("click", () => {
+        if (activeQuiz.index === activeQuiz.questions.length - 1) {
+          renderQuizResult();
+          return;
+        }
+        activeQuiz.index += 1;
+        renderQuizQuestion();
+        quizDialogContent.querySelector('input[name="quiz-answer"]').focus();
+      });
+      actions.append(next);
+    });
+    quizDialogContent.append(form);
+    form.querySelector('input[name="quiz-answer"]').focus();
+  }
+
+  function renderQuizResult() {
+    const total = activeQuiz.questions.length;
+    const percentage = Math.round((activeQuiz.score / total) * 100);
+    const best = saveBestQuizScore(activeQuiz.storageId, activeQuiz.score, total);
+    writeStorage("quiz:" + activeQuiz.storageId, String(activeQuiz.score));
+    quizProgress.textContent = "Intento completado";
+    quizDialogContent.replaceChildren();
+
+    const result = make("section", "quiz-result");
+    result.setAttribute("aria-live", "polite");
+    result.append(make("p", "quiz-result-score", activeQuiz.score + " / " + total));
+    result.append(make("p", "quiz-result-percent", percentage + "%"));
+    result.append(make("p", "quiz-result-message", percentage === 100
+      ? "¡Excelente! Respondiste correctamente todas las preguntas."
+      : percentage >= 70
+        ? "Buen repaso. Revisa las explicaciones para consolidar lo aprendido."
+        : "Vuelve a revisar la ficha y practica de nuevo."));
+    result.append(make("p", "quiz-best-readout", bestScoreLabel(best)));
+
+    const actions = make("div", "quiz-actions");
+    const retry = make("button", "button button-primary button-small", "Repetir intento");
+    retry.type = "button";
+    retry.addEventListener("click", () => startQuiz(
+      activeQuiz.title,
+      activeQuiz.questions,
+      activeQuiz.storageId,
+      quizReturnFocus,
+      activeQuiz.storageId === "general"
+    ));
+    const close = make("button", "button button-secondary button-small", "Cerrar");
+    close.type = "button";
+    close.addEventListener("click", () => quizDialog.close());
+    actions.append(retry, close);
+    result.append(actions);
+    quizDialogContent.append(result);
+    updateBestScoreDisplays();
+  }
+
+  function updateBestScoreDisplays() {
+    document.querySelectorAll("[data-quiz-best]").forEach((element) => {
+      element.textContent = bestScoreLabel(getBestQuizScore(element.dataset.quizBest));
+    });
+  }
+
+  function makeQuiz(module) {
+    const details = make("details", "quiz-details");
+    const summary = make("summary", "", "Autoevaluación · " + module.quiz.length + " preguntas");
+    const best = make("p", "quiz-best-readout", bestScoreLabel(getBestQuizScore(module.id)));
+    best.dataset.quizBest = module.id;
+    const start = make("button", "button button-primary button-small", "Iniciar quiz de " + module.codigo);
+    start.type = "button";
+    start.addEventListener("click", () => startQuiz(module.codigo + " · " + module.nombre, module.quiz, module.id, start, false));
+    details.append(summary, best, start);
     return details;
+  }
+
+  function makeSelfEvaluation(member) {
+    const details = make("details", "self-evaluation-card");
+    const summary = make("summary");
+    summary.append(make("span", "diary-role", member.role.toUpperCase()), make("strong", "", member.name));
+    const form = make("form", "self-evaluation-form");
+    const storageKey = "self-evaluation:" + member.id;
+    const feedback = make("p", "self-evaluation-feedback");
+    feedback.setAttribute("aria-live", "polite");
+
+    const strengths = make("fieldset", "self-evaluation-fieldset");
+    strengths.append(make("legend", "", "Tres cosas que consideras que realizaste bien"));
+    ["Primera cosa", "Segunda cosa", "Tercera cosa"].forEach((labelText, index) => {
+      const label = make("label", "self-evaluation-label", labelText);
+      const input = document.createElement("textarea");
+      input.name = "fortaleza" + (index + 1);
+      input.rows = 2;
+      input.maxLength = 400;
+      label.append(input);
+      strengths.append(label);
+    });
+    form.append(strengths);
+
+    const improvementLabel = make("label", "self-evaluation-label", "Una cosa que mejorarías");
+    const improvement = document.createElement("textarea");
+    improvement.name = "mejora";
+    improvement.rows = 2;
+    improvement.maxLength = 400;
+    improvementLabel.append(improvement);
+    form.append(improvementLabel);
+
+    const ratings = make("fieldset", "self-evaluation-fieldset");
+    ratings.append(make("legend", "", "Puntuación personal de cada criterio (1 a 10)"));
+    [
+      "Contenido por módulo",
+      "Interactividad",
+      "Diseño y accesibilidad",
+      "Control de versiones",
+      "Dominio individual"
+    ].forEach((criterion, index) => {
+      const label = make("label", "self-evaluation-rating", criterion);
+      const input = document.createElement("input");
+      input.type = "number";
+      input.name = "criterio" + (index + 1);
+      input.min = "1";
+      input.max = "10";
+      input.step = "1";
+      input.inputMode = "numeric";
+      input.setAttribute("aria-label", criterion + ", puntuación del 1 al 10");
+      label.append(input);
+      ratings.append(label);
+    });
+    form.append(ratings);
+
+    const reflectionLabel = make("label", "self-evaluation-label", "Reflexión sobre tu aprendizaje y contribución al equipo");
+    const reflection = document.createElement("textarea");
+    reflection.name = "reflexion";
+    reflection.rows = 4;
+    reflection.maxLength = 1000;
+    reflectionLabel.append(reflection);
+    form.append(reflectionLabel);
+
+    const actions = make("div", "quiz-actions");
+    const save = make("button", "button button-primary button-small", "Guardar en este navegador");
+    save.type = "submit";
+    const clear = make("button", "button button-secondary button-small", "Borrar mi reflexión");
+    clear.type = "button";
+    actions.append(save, clear, feedback);
+    form.append(actions);
+    details.append(summary, form);
+
+    const stored = readStorage(storageKey, null);
+    if (stored) {
+      try {
+        const values = JSON.parse(stored);
+        Object.entries(values).forEach(([name, value]) => {
+          const field = form.elements.namedItem(name);
+          if (field && typeof value === "string") field.value = value;
+        });
+      } catch (error) {
+        console.warn("No se pudo interpretar la autoevaluación guardada.", error);
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const values = Object.fromEntries(new FormData(form).entries());
+      feedback.textContent = writeStorage(storageKey, JSON.stringify(values))
+        ? "Tu reflexión quedó guardada en este navegador."
+        : "No se pudo guardar. Comprueba la configuración de almacenamiento del navegador.";
+    });
+    clear.addEventListener("click", () => {
+      try {
+        localStorage.removeItem(storagePrefix + storageKey);
+        form.reset();
+        feedback.textContent = "Se borró la reflexión guardada en este navegador.";
+      } catch (error) {
+        console.warn("No se pudo borrar la autoevaluación guardada.", error);
+        feedback.textContent = "No se pudo borrar la reflexión guardada.";
+      }
+    });
+    return details;
+  }
+
+  function setupSelfEvaluations() {
+    const grid = document.getElementById("self-evaluation-grid");
+    grid.replaceChildren(...selfEvaluationTeam.map(makeSelfEvaluation));
+  }
+
+  function setupQuizDialog() {
+    document.getElementById("quiz-dialog-close").addEventListener("click", () => quizDialog.close());
+    quizDialog.addEventListener("click", (event) => {
+      if (event.target === quizDialog) quizDialog.close();
+    });
+    quizDialog.addEventListener("close", () => {
+      activeQuiz = null;
+      if (quizReturnFocus && quizReturnFocus.isConnected) quizReturnFocus.focus();
+      quizReturnFocus = null;
+    });
   }
 
   function makeCard(module) {
@@ -479,7 +749,10 @@
     if (chips.childElementCount) article.append(chips);
 
     const footer = make("div", "card-footer");
-    const owner = make("span", "module-owner", "Docente: " + module.docente.join(" · "));
+    const ownerText = module.docente.length === 1 && module.docente[0] === "Por confirmar"
+      ? "Docente por confirmar"
+      : "Docente: " + module.docente.join(" · ");
+    const owner = make("span", "module-owner", ownerText);
     const reviewedLabel = make("label", "review-label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -587,14 +860,17 @@
   function setupTheme() {
     const button = document.getElementById("theme-toggle");
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    const savedTheme = readStorage("theme", "light");
-    document.documentElement.dataset.theme = savedTheme;
-    metaThemeColor.content = savedTheme === "light" ? "#E1E8DA" : "#18241B";
-    updateThemeButton(button, savedTheme);
+    const savedTheme = readStorage("theme", null);
+    const theme = savedTheme === "light" || savedTheme === "dark"
+      ? savedTheme
+      : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    metaThemeColor.content = theme === "light" ? "#F7F3EE" : "#292326";
+    updateThemeButton(button, theme);
     button.addEventListener("click", () => {
       const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = nextTheme;
-      metaThemeColor.content = nextTheme === "light" ? "#E1E8DA" : "#18241B";
+      metaThemeColor.content = nextTheme === "light" ? "#F7F3EE" : "#292326";
       writeStorage("theme", nextTheme);
       updateThemeButton(button, nextTheme);
     });
@@ -730,6 +1006,15 @@
   }
 
   function setupActions() {
+    setupQuizDialog();
+    setupSelfEvaluations();
+    document.getElementById("general-quiz-start").addEventListener("click", (event) => {
+      const questions = modules.flatMap((module) => module.quiz.map((question) => ({
+        ...question,
+        module: module.codigo
+      })));
+      startQuiz("Quiz general · los nueve módulos", questions, "general", event.currentTarget, true);
+    });
     [search, categoryFilter, ownerFilter].forEach((control) => {
       control.addEventListener(control === search ? "input" : "change", renderModules);
     });
@@ -748,7 +1033,11 @@
       reviewState = {};
       try {
         localStorage.removeItem(progressStorageKey);
-        modules.forEach((module) => localStorage.removeItem(storagePrefix + "quiz:" + module.id));
+        modules.forEach((module) => {
+          localStorage.removeItem(storagePrefix + "quiz:" + module.id);
+          localStorage.removeItem(storagePrefix + "quiz-best:" + module.id);
+        });
+        localStorage.removeItem(storagePrefix + "quiz-best:general");
       } catch (error) {
         console.warn("No se pudo borrar por completo el progreso del Día 2.", error);
       }
@@ -761,6 +1050,7 @@
           feedback.classList.remove("is-success");
         }
       });
+      updateBestScoreDisplays();
       updateProgress();
     });
     document.addEventListener("keydown", (event) => {

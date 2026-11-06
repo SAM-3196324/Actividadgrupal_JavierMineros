@@ -1,13 +1,67 @@
-# HUB 3DS·A — Día 2 (Miércoles) · v0.5
+# HUB 3DS·A — Portal educativo v1.0
 
-Guía estática e interactiva de repaso para tercer año de Desarrollo de Software del INDEL. La versión v0.5 corresponde al Día 2 (miércoles) e incluye los módulos oficiales BTVDS 3.0 a BTVDS 3.8.
+Portal estático de repaso para 3.º de Desarrollo de Software «A» del INDEL. Reúne nueve módulos, proyectos y evidencias del año en una experiencia hecha con HTML, CSS y JavaScript nativos.
 
-## Ejecutar localmente
+> **Estado:** la versión v1.0 está implementada en este espacio de trabajo y cuenta con pruebas locales documentadas. Los cambios siguen sin commit ni publicación; la página de GitHub Pages respondió, pero no identifica esta versión local. Lighthouse, una prueba en teléfono físico y la autorización de la fotografía grupal siguen pendientes.
 
-1. Abre la carpeta `hub-3ds-a` en Visual Studio Code.
-2. Inicia `index.html` con la extensión Live Server.
+## Vista previa
 
-El proyecto utiliza HTML, CSS y JavaScript nativos, sin frameworks ni pasos de compilación.
+![Portada del portal HUB 3DS·A](docs/evidencias/portal-v1.0.png)
+
+## Funcionalidades
+
+### Nivel Base
+
+- Portada y navegación entre secciones.
+- Nueve fichas construidas dinámicamente con los datos de `js/modulos.js`.
+- Aprendizajes, instrumentos, programas, herramientas, recursos y evidencias por módulo.
+- Galería modal con vista ampliada de imágenes y texto alternativo.
+- Estructura estática compatible con GitHub Pages.
+
+### Nivel Pro
+
+- Búsqueda sin distinción de mayúsculas ni tildes; filtros por categoría y docente.
+- Catálogo de **53 tecnologías y conocimientos en 11 categorías**, con tarjetas, filtros y carrusel.
+- Progreso de revisión guardado en el navegador.
+- Quiz de tres preguntas por módulo y práctica general aleatoria de 27 ítems; incluye retroalimentación, explicación y mejor puntaje con fecha.
+- Modo claro/oscuro: respeta la preferencia del sistema en la primera visita y guarda los cambios manuales.
+- Cuatro bitácoras y cuatro formularios de autoevaluación personal guardados solo en el navegador.
+- Atajos y foco de teclado visibles, enlace para saltar al contenido, etiquetas accesibles y diseño adaptable.
+
+El proyecto no declara funcionalidades del Nivel Épico que no estén verificadas.
+
+## Contenido académico y docentes
+
+Los nombres y docentes se muestran según la información confirmada disponible. No se asigna un docente por la apariencia de una evidencia.
+
+| Código | Módulo | Docente |
+|---|---|---|
+| BTVDS 3.0 | Orientación al estudiante al proceso educativo | Por confirmar |
+| BTVDS 3.1 | Desarrollo de aplicaciones de software para la solución de problemas | Javier Mineros |
+| BTVDS 3.2 | Mantenimiento y aseguramiento de la operación del sistema informático | Francisco Arcides Canales Sorto |
+| BTVDS 3.3 | Administración de Bases de Datos | Francisco Arcides Canales Sorto y Javier Mineros |
+| BTVDS 3.4 | Elaboración de documentación de sistemas informáticos | Por confirmar |
+| BTVDS 3.5 | Desarrollo de componentes para dispositivos móviles | Por confirmar |
+| BTVDS 3.6 | Conversación en inglés sobre mantenimiento de sistemas informáticos | Por confirmar |
+| BTVDS 3.7 | Puesta en marcha de la microempresa en asociatividad cooperativa | Por confirmar |
+| BTVDS 3.8 | Proyecto innovador de desarrollo de software | Por confirmar |
+
+El recorrido enlaza, entre otros, SQL Server y el proyecto VelvetHeel, Power BI, desarrollo de escritorio con .NET, PHP/MySQL/XAMPP, Python/SQLite, soporte técnico, inglés técnico, IoT y herramientas de IA. Los recursos de las fichas apuntan a documentación y sitios de referencia.
+
+### Evidencias y privacidad
+
+Las evidencias se agrupan por módulo dentro de `img/`. Las imágenes públicas de BTVDS 3.4 y 3.6 son copias que ocultan datos personales. Los originales `Informatica.png` e `Ingles.png` están excluidos por `img/.gitignore`: no deben publicarse.
+
+`Innovador.jpeg` muestra integrantes del equipo. **Confirmar la autorización de todas las personas antes de mantener esa fotografía en una publicación pública.**
+
+## Equipo y responsabilidades
+
+- **Samuel Eliseo Mendoza Gonzalez** — Líder Git: repositorio, integración, Pages y etiquetas de versión.
+- **Daniela Yamileth Rodriguez Zepeda** — Diseñadora UI: identidad visual y estilos.
+- **Marcela Abigail Mata Escobar** — Curadora de contenido: calidad de fichas y verificación de recursos.
+- **Nestor Eduardo Deodanes Martinez** — QA y accesibilidad: pruebas y revisión cruzada.
+
+La guía para ensayar defensas individuales y el checklist de Feria están en [`docs/`](docs/).
 
 ## Estructura
 
@@ -21,63 +75,51 @@ hub-3ds-a/
 │   ├── modulos.js
 │   └── tecnologias.js
 ├── img/
+├── docs/
+│   ├── evidencias/
+│   │   └── portal-v1.0.png
+│   ├── Defensa-individual.md
+│   ├── Feria-checklist.md
+│   └── QA-v1.0.md
 └── README.md
 ```
 
-- `index.html`: portada y estructura semántica del portal.
-- `css/styles.css`: identidad visual Velvet Romance, tema claro/oscuro y estilos responsive.
-- `js/app.js`: render de módulos y tecnologías, búsqueda, filtros, carrusel, tema, progreso, autoevaluaciones y galería de evidencias.
-- `js/modulos.js`: datos de los nueve módulos del Día 2, recursos, aprendizajes, instrumentos y evidencias.
-- `js/tecnologias.js`: catálogo de tecnologías y conocimientos organizados en once categorías.
-- `img/`: capturas, evidencias visuales y recursos gráficos del equipo.
+- `index.html`: estructura semántica y secciones del portal.
+- `css/styles.css`: identidad Velvet Romance, temas y reglas responsive.
+- `js/app.js`: renderizado, búsqueda, filtros, carrusel, tema, progreso, quizzes, galerías y autoevaluaciones.
+- `js/modulos.js`: información de los nueve módulos.
+- `js/tecnologias.js`: catálogo de tecnologías y conocimientos.
+- `img/`: evidencias y recursos gráficos.
 
-## Funcionalidades
+No se requiere framework, compilación ni instalación de dependencias. Las tipografías de Google Fonts requieren conexión; se conservan alternativas de sistema.
 
-- Catálogo de tecnologías con tarjetas generadas desde datos, filtros por categoría, controles de navegación, indicadores y desplazamiento táctil o con ratón.
-- Archivo de exactamente nueve módulos con búsqueda insensible a mayúsculas y tildes, filtro temático y filtro por docente.
-- Fichas con código, nombre oficial, docentes, tres aprendizajes clave, programas, herramientas, instrumentos y recursos.
-- Galería modal independiente por módulo; las imágenes existentes pueden ampliarse y los enlaces externos se abren de forma segura.
-- Progreso de revisión guardado en `localStorage` con la clave `hub3dsa_dia2_v05_progress`; no modifica el progreso de otras versiones.
-- Autoevaluaciones complementarias para practicar; no representan exámenes oficiales ni resultados académicos.
-- Selector de tema claro/oscuro con paleta verde musgo, oro, blanco y carbón; ondas doradas translúcidas acompañan el desplazamiento y respetan la preferencia de movimiento reducido.
+## Ejecutar localmente
 
-## Contenido académico
+1. Abre `hub-3ds-a` en Visual Studio Code y ejecuta `index.html` con Live Server. Como alternativa, desde la raíz del repositorio inicia un servidor:
 
-Los nombres de los módulos, códigos y docentes se basan en la información confirmada para el Día 2. Cuando un docente, instrumento, recurso o evidencia no está confirmado, la interfaz lo indica en lugar de asignar información por suposición.
+   ```powershell
+   Set-Location hub-3ds-a
+   python -m http.server 8000
+   ```
 
-Las evidencias se organizan por las etiquetas e imágenes compartidas por el equipo. Cada tarjeta incluye un botón **Evidencias** visible para abrir su galería correspondiente:
+2. Visita `http://localhost:8000/`.
 
-- **BTVDS 3.0:** resultados de Kahoot (`Kahoot.jpeg`).
-- **BTVDS 3.1:** aplicación de gestión para mascotas (`Maui.png`), práctica Windows Forms y ejercicios de Python.
-- **BTVDS 3.2:** documento sobre una plataforma web (`Sistema.jpeg`) y actividad práctica de soporte (`ComponentesPC.jpeg`).
-- **BTVDS 3.3:** proyecto de base de datos VelvetHeel (`VelvetHeel.png`).
-- **BTVDS 3.4:** formulario web y validación (`Informatica-public.png`).
-- **BTVDS 3.5:** juego móvil de parejas (`Movil.png`).
-- **BTVDS 3.6:** ficha bilingüe System Anatomy Map (`Ingles-public.png`).
-- **BTVDS 3.7:** tienda virtual con XAMPP y reporte de Power BI (`Xampp.jpeg`, `PowerBi.jpeg`).
-- **BTVDS 3.8:** presentación de innovación, prototipo Arduino y aplicación con Google Studio IA.
+Si ejecutas el servidor desde la raíz del repositorio, abre `http://localhost:8000/hub-3ds-a/`. La página `index.html` de la raíz del repositorio dirige a esta carpeta.
 
-La asignación docente sigue la distribución indicada por el equipo: Francisco Arcides Canales Sorto imparte BTVDS 3.1, 3.2, 3.5 y 3.7; Javier Mineros, BTVDS 3.0, 3.3, 3.4, 3.6 y 3.8.
+## Publicación y control de versiones
 
-Las evidencias de BTVDS 3.4 y 3.6 utilizan copias que ocultan datos personales. Los originales `Informatica.png` e `Ingles.png` se conservan localmente, están excluidos por `img/.gitignore` y no deben añadirse al repositorio. La fotografía de `Innovador.jpeg` muestra integrantes del grupo; confirmar que cuentan con autorización para publicarla.
+- Repositorio: <https://github.com/SAM-3196324/Actividadgrupal_JavierMineros>
+- GitHub Pages: <https://sam-3196324.github.io/Actividadgrupal_JavierMineros/>
+- La ruta de Pages sirve `hub-3ds-a/` desde el repositorio.
+- El código local mostrado como v1.0 aún no tiene commit ni etiqueta verificados. No se han creado etiquetas históricas ni se ha reescrito el historial.
+- Para publicar esta revisión, primero completa las comprobaciones y autorizaciones pendientes; después revisa `git status`, crea commits descriptivos y sube los cambios a la rama configurada para Pages. Confirma la URL publicada y su contenido tras el despliegue.
 
-Las tecnologías, herramientas y conceptos solicitados por el equipo están centralizados en `js/tecnologias.js`. Cada entrada incluye nombre, categoría, marca tipográfica e introducción breve.
+Los cambios de código no aparecen en GitHub Pages hasta que se incorporan a la rama fuente y termina el despliegue. Durante esta revisión, la URL pública respondió con HTTP 200, pero su título no identificó la v1.0 local. El parámetro de versión de la hoja de estilos ayuda a evitar servir una copia antigua desde caché.
 
-## Equipo y responsabilidades
+## Validación
 
-- **Samuel Eliseo Mendoza Gonzalez** — Líder Git: repositorio, GitHub Pages e integración de versiones.
-- **Daniela Yamileth Rodriguez Zepeda** — Diseñadora UI: identidad visual y estilos.
-- **Marcela Abigail Mata Escobar** — Curadora de contenido: calidad de fichas y verificación de recursos.
-- **Nestor Eduardo Deodanes Martinez** — QA y accesibilidad: pruebas y revisión cruzada.
+Las pruebas locales, enlaces comprobados, resultados y pendientes están detallados en [`docs/QA-v1.0.md`](docs/QA-v1.0.md). Lighthouse y la comprobación en un teléfono físico todavía no se han realizado; no se publican puntuaciones estimadas.
 
-## Publicación
+## Uso de IA
 
-El portal es estático y se publica en GitHub Pages. El `index.html` de la raíz del repositorio dirige a esta carpeta.
-
-**GitHub Pages:** <https://sam-3196324.github.io/Actividadgrupal_JavierMineros/>
-
-### Solución de problemas de evidencias
-
-- Si una galería muestra un error de carga, comprueba que Live Server esté activo o vuelve a abrir la página; ahora puedes usar **Reintentar** en la galería.
-- Verifica que cada archivo exista dentro de `img/` y que el nombre y las mayúsculas coincidan exactamente con `js/modulos.js`.
-- GitHub Pages solo sirve archivos incluidos en el repositorio. Después de agregar evidencias o cambiar código, confirma que los cambios estén publicados y recarga la página sin caché.
+La IA se utilizó como apoyo para organizar contenido, revisar redacción y programar. El equipo debe cotejar cada afirmación con sus apuntes, evidencias y la guía docente; las herramientas de IA no sustituyen esa revisión ni acreditan aportes individuales. Los datos no confirmados se mantienen como pendientes y cada integrante debe describir únicamente el trabajo que realizó y puede demostrar.
