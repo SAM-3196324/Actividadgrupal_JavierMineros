@@ -32,19 +32,19 @@ El proyecto no declara funcionalidades del Nivel Épico que no estén verificada
 
 ## Contenido académico y docentes
 
-Los nombres y docentes se muestran según la información confirmada disponible. No se asigna un docente por la apariencia de una evidencia.
+Los nombres y docentes se muestran según la distribución confirmada por el equipo. No se asigna un docente por la apariencia de una evidencia.
 
 | Código | Módulo | Docente |
 |---|---|---|
-| BTVDS 3.0 | Orientación al estudiante al proceso educativo | Por confirmar |
+| BTVDS 3.0 | Orientación al estudiante al proceso educativo | Javier Mineros |
 | BTVDS 3.1 | Desarrollo de aplicaciones de software para la solución de problemas | Javier Mineros |
 | BTVDS 3.2 | Mantenimiento y aseguramiento de la operación del sistema informático | Francisco Arcides Canales Sorto |
 | BTVDS 3.3 | Administración de Bases de Datos | Francisco Arcides Canales Sorto y Javier Mineros |
-| BTVDS 3.4 | Elaboración de documentación de sistemas informáticos | Por confirmar |
-| BTVDS 3.5 | Desarrollo de componentes para dispositivos móviles | Por confirmar |
-| BTVDS 3.6 | Conversación en inglés sobre mantenimiento de sistemas informáticos | Por confirmar |
-| BTVDS 3.7 | Puesta en marcha de la microempresa en asociatividad cooperativa | Por confirmar |
-| BTVDS 3.8 | Proyecto innovador de desarrollo de software | Por confirmar |
+| BTVDS 3.4 | Elaboración de documentación de sistemas informáticos | Javier Mineros |
+| BTVDS 3.5 | Desarrollo de componentes para dispositivos móviles | Francisco Arcides Canales Sorto |
+| BTVDS 3.6 | Conversación en inglés sobre mantenimiento de sistemas informáticos | Javier Mineros |
+| BTVDS 3.7 | Puesta en marcha de la microempresa en asociatividad cooperativa | Francisco Arcides Canales Sorto |
+| BTVDS 3.8 | Proyecto innovador de desarrollo de software | Javier Mineros |
 
 El recorrido enlaza, entre otros, SQL Server y el proyecto VelvetHeel, Power BI, desarrollo de escritorio con .NET, PHP/MySQL/XAMPP, Python/SQLite, soporte técnico, inglés técnico, IoT y herramientas de IA. Los recursos de las fichas apuntan a documentación y sitios de referencia.
 
@@ -85,7 +85,7 @@ hub-3ds-a/
 ```
 
 - `index.html`: estructura semántica y secciones del portal.
-- `css/styles.css`: identidad Velvet Romance, temas y reglas responsive.
+- `css/styles.css`: paleta verde musgo y oro, temas y reglas responsive.
 - `js/app.js`: renderizado, búsqueda, filtros, carrusel, tema, progreso, quizzes, galerías y autoevaluaciones.
 - `js/modulos.js`: información de los nueve módulos.
 - `js/tecnologias.js`: catálogo de tecnologías y conocimientos.

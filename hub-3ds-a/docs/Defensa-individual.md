@@ -36,9 +36,9 @@ El código normaliza el texto y elimina diacríticos antes de comparar la consul
 
 Se usa `localStorage` del navegador. Los datos no se envían a un servidor y no se sincronizan automáticamente entre dispositivos o navegadores.
 
-**¿Por qué hay docentes marcados como “Por confirmar”?**
+**¿Cómo se verificaron las asignaciones docentes?**
 
-Porque no hay una confirmación disponible para esos módulos. Se actualizarán solo cuando el equipo o el docente la proporcione.
+Se cotejaron con la distribución confirmada por el equipo y las asignaciones documentadas previamente. Las evidencias visuales por sí solas no se utilizaron para atribuir un módulo a un docente.
 
 **¿Cómo protegen los datos personales en las evidencias?**
 

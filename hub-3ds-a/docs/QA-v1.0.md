@@ -14,7 +14,7 @@
 | Recursos | 27 URL externas únicas comprobadas por HTTP; las 27 respondieron con estado 200 en esta revisión. |
 | GitHub Pages | La URL pública respondió con HTTP 200, pero el título observado fue «HUB 3DS·A» y no identificó la v1.0 local; no se considera prueba de que los cambios locales estén publicados. |
 | Evidencias | Se abrieron las 9 galerías; las 14 imágenes configuradas cargaron con texto alternativo. |
-| Búsqueda y filtros | La búsqueda sin tilde «conversacion en ingles» encontró BTVDS 3.6; el filtro «Por confirmar» mostró 6 módulos y el filtro «Inglés técnico», 1. |
+| Búsqueda y filtros | La búsqueda sin tilde «conversacion en ingles» encontró BTVDS 3.6; el filtro «Por confirmar» no muestra módulos y el filtro «Inglés técnico», 1. |
 | Responsive | Se comprobaron 360, 390, 700, 701, 768, 850, 851, 900, 920, 921, 1024 y 1440 px. No hubo desbordamiento horizontal en ninguno. |
 | Menú | El botón colapsable funcionó a 768 px, no generó desbordamiento y cerró el menú al seguir un enlace. En anchos de 701 a 920 px se usa el menú compacto. |
 | Quizzes | La práctica general se completó con 27/27 y el quiz de BTVDS 3.3 con 3/3. Se comprobó la retroalimentación y el guardado independiente del mejor puntaje. En una prueba temporal de BTVDS 3.0, la secuencia 0/3 → 3/3 → 0/3 conservó 3/3 como mejor resultado. El estado de almacenamiento usado por la prueba se restauró al terminar. |
@@ -39,7 +39,6 @@ Esta inspección funcional no es una auditoría completa WCAG: falta probar con 
 - [ ] Abrir la página publicada en un teléfono físico, revisar los nueve módulos, el menú, las galerías, el carrusel y los formularios.
 - [ ] Confirmar que GitHub Pages muestra el commit previsto después de publicar esta revisión.
 - [ ] Obtener y registrar autorización para la fotografía grupal de `img/Innovador.jpeg`, o retirarla de la publicación.
-- [ ] Confirmar con el equipo o docente los nombres marcados **Por confirmar**.
 - [ ] Completar las rondas, comentarios y revisión cruzada de Feria; registrar los resultados reales en [`Feria-checklist.md`](Feria-checklist.md).
 
 ## Cómo ejecutar Lighthouse

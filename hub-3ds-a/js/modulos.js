@@ -4,7 +4,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.0",
     nombre: "Orientación al estudiante al proceso educativo",
     categoria: "Orientación",
-    docente: ["Por confirmar"],
+    docente: ["Javier Mineros"],
     resumen: "Repaso de la orientación y el proceso educativo mediante una actividad diagnóstica en Kahoot. La evidencia muestra los resultados de participación; sirve como punto de partida para reconocer conocimientos previos.",
     aprendizajesClave: [
       "Identificar el propósito y las etapas del proceso educativo correspondiente al módulo.",
@@ -135,7 +135,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.4",
     nombre: "Elaboración de documentación de sistemas informáticos",
     categoria: "Documentación",
-    docente: ["Por confirmar"],
+    docente: ["Javier Mineros"],
     resumen: "Documentación de sistemas informáticos con apoyo en la descripción de interfaces, formularios y sus respuestas ante entradas no válidas. La captura del formulario de contacto sirve para analizar campos, mensajes de validación y comportamiento visible para la persona usuaria.",
     aprendizajesClave: [
       "Reconocer la documentación como apoyo para comprender y mantener un sistema.",
@@ -167,7 +167,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.5",
     nombre: "Desarrollo de componentes para dispositivos móviles",
     categoria: "Aplicaciones móviles",
-    docente: ["Por confirmar"],
+    docente: ["Francisco Arcides Canales Sorto"],
     resumen: "Desarrollo de componentes para dispositivos móviles, vinculado a .NET MAUI y operaciones CRUD. La captura muestra un juego móvil de parejas con tablero interactivo, temporizador y opción para reiniciar.",
     aprendizajesClave: [
       "Identificar la función de componentes dentro de una aplicación móvil.",
@@ -199,7 +199,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.6",
     nombre: "Conversación en inglés sobre mantenimiento de sistemas informáticos",
     categoria: "Inglés técnico",
-    docente: ["Por confirmar"],
+    docente: ["Javier Mineros"],
     resumen: "Conversación en inglés vinculada a prácticas de mantenimiento: limpieza y revisión de una computadora de escritorio, identificación de componentes, registro en inglés de CPU, RAM, almacenamiento y sistema operativo, y preparación de reportes y diálogos simulados entre un técnico y un cliente.",
     aprendizajesClave: [
       "Utilizar vocabulario informático pertinente al describir una situación de mantenimiento.",
@@ -231,7 +231,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.7",
     nombre: "Puesta en marcha de la microempresa en asociatividad cooperativa",
     categoria: "Microempresa",
-    docente: ["Por confirmar"],
+    docente: ["Francisco Arcides Canales Sorto"],
     resumen: "Módulo de puesta en marcha de una microempresa en asociatividad cooperativa. El recorrido anual incluye ejercicios de PHP, XAMPP y MySQL; administración de una tienda virtual en PrestaShop; y prácticas académicas de Power BI, con datos importados desde Excel y SQL Server, filtros, visualizaciones y extracción de tablas de Wikipedia. No se presentan esos ejercicios como resultados comerciales ni estadísticas oficiales.",
     aprendizajesClave: [
       "Reconocer la importancia de organizar responsabilidades para poner en marcha una iniciativa cooperativa.",
@@ -265,7 +265,7 @@ window.MODULOS = [
     codigo: "BTVDS 3.8",
     nombre: "Proyecto innovador de desarrollo de software",
     categoria: "Proyectos innovadores",
-    docente: ["Por confirmar"],
+    docente: ["Javier Mineros"],
     resumen: "Proyectos innovadores presentados en la Feria de Logros: un automóvil controlado con gestos mediante un guante con sensores y Arduino, y una aplicación de cámara que reconoce gestos de lenguaje de señas y permite dibujar figuras. También se exploraron aplicaciones de hábitos y rachas con Google Studio IA y juegos interactivos con apoyo de GitHub Copilot. Se describen como prototipos y experiencias de aprendizaje.",
     aprendizajesClave: [
       "Relacionar una necesidad con la propuesta de un prototipo de software innovador.",

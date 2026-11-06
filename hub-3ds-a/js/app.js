@@ -865,12 +865,12 @@
       ? savedTheme
       : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     document.documentElement.dataset.theme = theme;
-    metaThemeColor.content = theme === "light" ? "#F7F3EE" : "#292326";
+    metaThemeColor.content = theme === "light" ? "#E1E8DA" : "#18241B";
     updateThemeButton(button, theme);
     button.addEventListener("click", () => {
       const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       document.documentElement.dataset.theme = nextTheme;
-      metaThemeColor.content = nextTheme === "light" ? "#F7F3EE" : "#292326";
+      metaThemeColor.content = nextTheme === "light" ? "#E1E8DA" : "#18241B";
       writeStorage("theme", nextTheme);
       updateThemeButton(button, nextTheme);
     });
